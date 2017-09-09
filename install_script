@@ -1,0 +1,10 @@
+GITRPG=path/to/GitRPG/main.py # edit!
+function hoge(){
+  COMMAND=${1}
+  # echo "hogeee ${COMMAND}"
+  ${GITRPG} ${COMMAND}
+  # sleep 2s
+  # kill -INT 0
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec hoge
