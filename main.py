@@ -14,7 +14,7 @@ def main(arg: List[str]):
         # mixerモジュールの初期化
         pygame.mixer.init()
         # 音楽ファイルの読み込み
-        pygame.mixer.music.load("mondo_02.mp3")
+        pygame.mixer.music.load("ゴング.mp3")
         # 音楽再生、および再生回数の設定(-1はループ再生)
         pygame.mixer.music.play(-1)
 
