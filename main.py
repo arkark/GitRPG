@@ -6,7 +6,9 @@ from src.template import template
 
 
 def main(arg: List[str]):
-    template(arg[1])
+    command = arg[1]
+    if command.startswith("git"):
+        template(arg[1])
 
 
 if __name__ == "__main__":
