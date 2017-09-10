@@ -9,4 +9,6 @@ from src.util import getColorText
 
 def status(args):
     args.se_manager.play_wav("pi")
+    if args.state.add_exp(10):
+        return "level up!", False
     return "", False
