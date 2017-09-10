@@ -7,5 +7,5 @@ from src.se_manager import play
 from src.util import getColorString
 from src.util import getColorText
 def commit(cmd, se_path):
-    play(se_path + "/ta//ta/星・キラーン06.mp3")
+    play(se_path + "/ta/星・キラーン06.mp3")
 
