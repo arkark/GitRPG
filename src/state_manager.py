@@ -96,9 +96,9 @@ class State:
 
     def showStr(self):
         if float(self.hp / self.max_hp) <= 0.1:
-            return getColorText(f"LV: {self.lv} HP:",32) + getColorText("{0}/{1}".format(self.hp, self.max_hp),91) + getColorText(f" MP: {self.mp}/{self.max_mp}",32)
+            return getColorText(f"LV: {self.lv} HP: ",32) + getColorText("{0}/{1}".format(self.hp, self.max_hp),91) + getColorText(f" MP: {self.mp}/{self.max_mp}",32)
         elif float(self.hp / self.max_hp) <= 0.3:
-            return getColorText(f"LV: {self.lv} HP:",32) + getColorText("{0}/{1}".format(self.hp, self.max_hp),93) + getColorText(f" MP: {self.mp}/{self.max_mp}",32)
+            return getColorText(f"LV: {self.lv} HP: ",32) + getColorText("{0}/{1}".format(self.hp, self.max_hp),93) + getColorText(f" MP: {self.mp}/{self.max_mp}",32)
         else:
             return getColorText(f"LV: {self.lv} HP: {self.hp}/{self.max_hp} MP: {self.mp}/{self.max_mp}",32)
 

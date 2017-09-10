@@ -50,6 +50,8 @@ from src.git_revert import revert
 from src.state_manager import State
 from src.git_combo import combo
 from src.util import getColorText
+from colr import color
+from colr import Colr as C
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -244,10 +246,10 @@ def main():
 
                     if res is not None:
                         data = Data(
-                            mp_text + lv_text + getColorText(username+ ": ", 32)  + args.state.showStr() + "\n" + res + combo_text, abort)
+                            mp_text + lv_text + str(C().b_rgb(232, 117, 249).rgb(117,249,157,username + ": ")) + args.state.showStr() + "\n" + res + combo_text, abort)
                         clientsock.sendall(data.encode())
                     else:
-                        data = Data(mp_text + lv_text + getColorText(username+ ": ", 32) + args.state.showStr() + combo_text, abort)
+                        data = Data(mp_text + lv_text + str(C().b_rgb(232, 117, 249).rgb(117,249,157,username+ ": ")) + args.state.showStr() + combo_text, abort)
                         clientsock.sendall(data.encode())
                 else:
                     state.reset_combo()
@@ -260,7 +262,7 @@ def main():
                             state = State.reset_state()
                             clientsock.close()
                             break
-                        data = Data(" >> miss!! << \n" + getColorText(username+ ": " , 32) + args.state.showStr(), False)
+                        data = Data(" >> miss!! << \n" + str(C().b_rgb(232, 117, 249).rgb(117,249,157,username+ ": ")) + args.state.showStr(), False)
 
                         clientsock.sendall(data.encode())
 
