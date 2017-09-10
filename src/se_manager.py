@@ -27,12 +27,21 @@ from pygame import mixer
 #         print("length", sound.info.length)
 #         time.sleep(sound.info.length)
 
-# class
+class SE_Manager:
+    def __init__(self):
+        self.wavs = {}
 
-def loadtest():
-    # s = pygame.mixer.Sound(os.path.dirname(os.path.abspath(__file__))+"/../music/ta/お化け.mp3")
-    # print(s)
-    pass
+    def register_wav(self,key,wav_path):
+        sound = pygame.mixer.Sound(wav_path)
+        self.wavs[key] = sound
+
+
+
+    def play_wav(self,key):
+        if key in self.wavs:
+            self.wavs[key].play()
+
+        print(f"[debug] wav not found for key {key}")
 
 
 def play(se_full_path):

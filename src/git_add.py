@@ -8,8 +8,9 @@ from src.se_manager import play
 from src.util import getColorString
 
 
-def add(cmd, se_path):
-    play(se_path + "/ta/流れ星01.mp3")
+def add(args):
+    args.se_manager.play_wav("obake")
+    # play(se_path + "/ta/流れ星01.mp3")
 
     # # mixerモジュールの初期化
     # pygame.mixer.init()
