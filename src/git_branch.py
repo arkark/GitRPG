@@ -6,6 +6,7 @@ from src.util import getColorString
 from src.util import getColorText
 
 def branch(args):
+    args.state.use_mp(1)
     args.se_manager.play_wav("metro")
 
 #def branch(cmd, se_path):
