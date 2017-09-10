@@ -1,0 +1,26 @@
+#!/bin/sh
+
+C_PORT=`lsof -t -i:3456`
+
+echo $C_PORT
+
+if [ "$1" = "on" ]; then
+  if [ "$C_PORT" = "" ]; then
+    echo "turn on"
+    # TODO 本番では、末尾に&使う
+    # gitrpg_server.py &
+    gitrpg_server.py
+  else
+    echo "already running"
+  fi
+elif [ "$1" = "off" ]; then
+  # サーバ落とし
+  if [ "$C_PORT" = "" ]; then
+    echo "server is not running"
+  else
+    echo "turn off"
+    kill $C_PORT
+  fi
+else
+  echo "else"
+fi
