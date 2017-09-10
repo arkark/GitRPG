@@ -22,6 +22,7 @@ from mutagen.mp3 import MP3
 import src.se_manager
 from src.data.data import Data
 from src.se_manager import SE_Manager
+from src.util import base_color, combo_color
 
 #
 from src import state_manager
@@ -244,13 +245,18 @@ def main():
                     else:
                         lv_text = ""
 
-                    if res is not None:
-                        data = Data(
-                            mp_text + lv_text + str(C().b_rgb(232, 117, 249).rgb(117,249,157,username + ": ")) + args.state.showStr() + "\n" + res + combo_text, abort)
-                        clientsock.sendall(data.encode())
-                    else:
-                        data = Data(mp_text + lv_text + str(C().b_rgb(232, 117, 249).rgb(117,249,157,username+ ": ")) + args.state.showStr() + combo_text, abort)
-                        clientsock.sendall(data.encode())
+                    if res is None:
+                        res = ""
+                    if res != "":
+                        res = "\n" + res
+                    data = Data(
+                        base_color(mp_text) +
+                        base_color(lv_text) +
+                        str(base_color(username + ": ")) +
+                        args.state.showStr() +
+                        "\n" + res +
+                        combo_text, abort)
+                    clientsock.sendall(data.encode())
                 else:
                     state.reset_combo()
                     if subcmd not in all_git_commands:
@@ -262,7 +268,8 @@ def main():
                             state = State.reset_state()
                             clientsock.close()
                             break
-                        data = Data(" >> miss!! << \n" + str(C().b_rgb(232, 117, 249).rgb(117,249,157,username+ ": ")) + args.state.showStr(), False)
+                        data = Data(" >> miss!! << \n" + str(
+                            C().b_rgb(232, 117, 249).rgb(117, 249, 157, username + ": ")) + args.state.showStr(), False)
 
                         clientsock.sendall(data.encode())
 
@@ -277,8 +284,8 @@ def gen_combo_text(combo, args):
     chain = "->".join(combo)
     # TODO 10の倍数で効果音追加
     if (combo_length % 10 == 0) and (combo_length != 0):
-       args.se_manager.play_wav("shot")
-    return getColorText(f"\n{combo_length} COMBO! {chain}",36)
+        args.se_manager.play_wav("shot")
+    return combo_color(f"\n{combo_length} COMBO! {chain}")
 
 
 def mp_zero_text(mp):
