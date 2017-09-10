@@ -6,6 +6,6 @@ from src.se_manager import play
 from src.util import getColorString
 from src.util import getColorText
 
-def push(cmd, se_path):
-    play(se_path + "/ta/盛り上がり02.mp3")
+def push(args):
+    args.se_manager.play_wav("moriagari")
 

@@ -44,6 +44,8 @@ from src.git_clean import clean
 from src.git_rebase import rebase
 from src.git_help import help_
 from src.git_fail import fail_command
+from src.git_pull import pull
+from src.git_revert import revert
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -129,10 +131,20 @@ def main():
     SE.register_wav("kira06", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/星・キラーン06.wav")  # commit
     SE.register_wav("quiz", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/クイズ・出題03.wav")  # help
     SE.register_wav("hora", os.path.dirname(os.path.abspath(__file__)) + "/music/attack/ホラ貝02.wav")  # init
-    SE.register_wav("marimba", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/サンザ・マリンバ03.wav")  # reset
+    SE.register_wav("marimba", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/サンザ・マリンバ03.wav")  # show
     SE.register_wav("syun", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/シューン.wav")  # reset
     SE.register_wav("quiz", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/クイズ・間違い03.wav")  # fail
-
+    SE.register_wav("metro", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/メトロノーム（早）.wav")  # branch
+    SE.register_wav("goukaku", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/合格！（キンコンカンコン）.wav")  # log
+    SE.register_wav("pi", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/ピ！.wav")  # status
+    SE.register_wav("pyui", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/引っ付くピュイ！.wav")  # fetch
+    SE.register_wav("attack43", os.path.dirname(os.path.abspath(__file__)) + "/music/muci/単発音・アタック43.wav")  # config
+    SE.register_wav("attack01", os.path.dirname(os.path.abspath(__file__)) + "/music/muci/単発音・アタック01.wav")  # diff
+    SE.register_wav("biyorn02", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/びよーんと伸びる02.wav")  # pull
+    SE.register_wav("pyurn", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/飛んでいく・ひゅ〜〜ん.wav")  # revert
+    SE.register_wav("moriagari", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/盛り上がり02.wav")  # push
+    SE.register_wav("mahou11", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/魔法的音11.wav")  # merge
+    SE.register_wav("R01", os.path.dirname(os.path.abspath(__file__)) + "/music/muci/BGM・ループ・軽快R01.wav")  # rebase
     # register handlers
     handlers = {
         "add": add
