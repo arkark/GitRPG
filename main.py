@@ -33,10 +33,13 @@ def main(arg: List[str]):
             pygame.mixer.music.load("music/attack/ゴング.mp3")
             # 音楽再生、および再生回数の設定(-1はループ再生)
             pygame.mixer.music.play(-1)
-
+            f = open('text.txt', 'r')
+            string = f.read()
+            print(string)
             time.sleep(5)
             # 再生の終了
             pygame.mixer.music.stop()
+
 
 
 if __name__ == "__main__":
