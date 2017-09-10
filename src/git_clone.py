@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+from src.state_manager import State
 
 
 def clone(args):
-    args.state.__init__(1, 10, 10, 10, 10)
+    args.state = State.reset_state()
     args.se_manager.play_wav("gogogo")

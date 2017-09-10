@@ -1,60 +1,44 @@
 #!/usr/bin/env python
 
-import sys
-from typing import List
-
-import socket
 import os
-import subprocess
-
-import pygame
 import re
-from mutagen.mp3 import MP3
-import time
-
-import sys
+import socket
+import subprocess
 import threading
 import time
-from subprocess import Popen
 
 import pygame
 from mutagen.mp3 import MP3
-import src.se_manager
+
+from src import state_manager
 from src.controller import aa_controller
 from src.controller.aa_controller import level_up_aa
 from src.data.data import Data
-from src.se_manager import SE_Manager
-from src.util import base_color, combo_color, err_color, game_over_color
-
-#
-from src import state_manager
 from src.git_add import add
-from src.git_commit import commit
-from src.git_init import init
-from src.git_log import log
-from src.git_push import push
-from src.git_merge import merge
-from src.git_status import status
-from src.git_show import show
 from src.git_branch import branch
-from src.git_clone import clone
 from src.git_checkout import checkout
-from src.git_reset import reset
-from src.git_fetch import fetch
+from src.git_clean import clean
+from src.git_clone import clone
+from src.git_commit import commit
 from src.git_config import config
 from src.git_diff import diff
-from src.git_clean import clean
-from src.git_rebase import rebase
-from src.git_help import help_
 from src.git_fail import fail_command
-from src.git_stash import stash
+from src.git_fetch import fetch
+from src.git_help import help_
+from src.git_init import init
+from src.git_log import log
+from src.git_merge import merge
 from src.git_pull import pull
+from src.git_push import push
+from src.git_rebase import rebase
+from src.git_reset import reset
 from src.git_revert import revert
+from src.git_show import show
+from src.git_stash import stash
+from src.git_status import status
+from src.se_manager import SE_Manager
 from src.state_manager import State
-from src.git_combo import combo
-from src.util import getColorText
-from colr import color
-from colr import Colr as C
+from src.util import base_color, combo_color, err_color, game_over_color
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -129,7 +113,7 @@ def main():
 
     # print(f'stdout: {}')
     # print('stderr: %s' % (p.stderr.readlines(),))
-    print(username)
+    # print(username)
 
     # register sound files
     dirname = os.path.dirname(os.path.abspath(__file__))
@@ -157,6 +141,7 @@ def main():
     SE.register_wav("harisen01", dirname + "/music/attack/ハリセンで叩く02.wav")  # stash
     SE.register_wav("shot", dirname + "/music/attack/銃火器・ショットガン.wav")  # combo
     SE.register_wav("lvup", dirname + "/music/muci/dq_lvup.wav")  # combo
+    SE.register_wav("pushf", dirname + "/music/attack/爆破・爆発19.wav")  # pushf
 
     # register handlers
     handlers = {
@@ -217,6 +202,7 @@ def main():
                     lv_prev = state.lv
                     state.command(subcmd)
                     args = HandlerArgs(command, se_path, SE, state)
+                    state = args.state
                     obj = handlers[subcmd](args)
                     lv_next = state.lv
 
@@ -269,6 +255,7 @@ def main():
                     state.reset_combo()
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
+                        state = args.state
                         fail_command(args)
                         if state.hp <= 0:
                             aa = aa_controller.game_over_aa()

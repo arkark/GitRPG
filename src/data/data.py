@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-from typing import List
 import json
 
 
