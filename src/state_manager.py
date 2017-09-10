@@ -109,6 +109,14 @@ class State:
             pickle.dump(self, f)
 
     @staticmethod
+    def reset_state():
+        save_path = os.path.dirname(os.path.abspath(__file__)) + "/../state/state.pickle"
+        if os.path.exists(save_path):
+            os.remove(save_path)
+        return State.initial_state()
+
+
+    @staticmethod
     def initial_state():
         return State(1, 10, 10, 10, 10)
 
@@ -121,3 +129,6 @@ def load_state():
 
     with open(state_path + '/state.pickle', 'rb') as f:
         return pickle.load(f)
+
+
+

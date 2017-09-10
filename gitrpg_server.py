@@ -177,7 +177,7 @@ def main():
     }
 
     while True:
-        print('Waiting for connections...')
+        # print('Waiting for connections...')
         clientsock, client_address = serversock.accept()
 
         while True:
@@ -197,17 +197,14 @@ def main():
             #     clientsock.close()
             #     break
             if command == "gitrpg reset":
-                save_path = os.path.dirname(os.path.abspath(__file__)) + "/state/state.pickle"
-                if os.path.exists(save_path):
-                    os.remove(save_path)
-                    state = State.initial_state()
+                state = State.reset_state()
                 clientsock.sendall(b"")
                 clientsock.close()
                 break
 
             match = re.match("git (\w+)", command)
             if match:
-                print("[debug] git command detect")
+                # print("[debug] git command detect")
                 subcmd = match.group(1)
                 if subcmd in handlers:
                     lv_prev = state.lv
@@ -224,11 +221,19 @@ def main():
                             res, abort = obj[0], obj[1]
                     abort = abort or state.mp < 0
                     mp_text = mp_zero_text(state.mp)
+
+                    # dead
+                    if state.hp <= 0:
+                        data = Data("you dead!!!", True)
+                        clientsock.sendall(data.encode())
+                        state = State.reset_state()
+                        clientsock.close()
+                        break
+
                     state.normalize()
-                    # TODO hpが0になった時の処理追加（死ぬ？）
 
                     # combo
-                    combo_text = gen_combo_text(state.combo,args)
+                    combo_text = gen_combo_text(state.combo, args)
 
                     # level up
                     if lv_prev != lv_next:
@@ -248,22 +253,27 @@ def main():
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
+                        if state.hp <= 0:
+                            data = Data("you dead!!!", True)
+                            clientsock.sendall(data.encode())
+                            state = State.reset_state()
+                            clientsock.close()
+                            break
                         data = Data(" >> miss!! << \n" + username + ": " + args.state.showStr(), False)
                         clientsock.sendall(data.encode())
 
             clientsock.close()
-
             break
 
 
-def gen_combo_text(combo,args):
+def gen_combo_text(combo, args):
     combo_length = len(combo)
     if combo_length == 0:
         return ""
     chain = "->".join(combo)
     # TODO 10の倍数で効果音追加
     if (combo_length % 10 == 0) and (combo_length != 0):
-       args.se_manager.play_wav("shot")
+        args.se_manager.play_wav("shot")
     return f"\n{combo_length} COMBO! {chain}"
 
 
