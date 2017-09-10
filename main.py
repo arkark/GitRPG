@@ -4,16 +4,20 @@ import sys
 from typing import List
 from src.template import template
 import pygame.mixer
-import time
+import time, os, re
+from src.git_add import add
 
 from src import state_manager
 
 state = state_manager.load_state()
+se_path = os.path.dirname(__file__) + "/music"
+
+handlers = {
+    "add": add
+}
 
 
 def main(arg: List[str]):
-    # print("[debug]gitrpg hooking")
-    # print(state)
     if len(arg) < 2:
         print("[debug] invalid arguments count")
     command = arg[1]
@@ -24,19 +28,13 @@ def main(arg: List[str]):
     else:
         if not state.enable:
             return
-
-        if command.startswith("git"):
-            template(arg[1])
-            # mixerモジュールの初期化
-            pygame.mixer.init()
-            # 音楽ファイルの読み込み
-            pygame.mixer.music.load("music/attack/ゴング.mp3")
-            # 音楽再生、および再生回数の設定(-1はループ再生)
-            pygame.mixer.music.play(-1)
-
-            time.sleep(5)
-            # 再生の終了
-            pygame.mixer.music.stop()
+        match = re.match("git (\w+)", command)
+        if match:
+            print("[debug] git command detect")
+            subcmd = match.group(1)
+            print(subcmd)
+            if subcmd in handlers:
+                handlers[subcmd](command, se_path)
 
 
 if __name__ == "__main__":
