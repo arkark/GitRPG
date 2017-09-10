@@ -233,6 +233,8 @@ def main():
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
+                        data = Data(" >> miss!! << \n" + username + ": " + args.state.showStr(), False)
+                        clientsock.sendall(data.encode())
 
             clientsock.close()
 
