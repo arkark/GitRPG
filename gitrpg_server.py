@@ -20,6 +20,10 @@ from subprocess import Popen
 import pygame
 from mutagen.mp3 import MP3
 import src.se_manager
+
+from src.controller import aa_controller
+from src.controller.aa_controller import level_up_aa
+
 from src.data.data import Data
 from src.se_manager import SE_Manager
 from src.util import base_color, combo_color, err_color
@@ -245,7 +249,7 @@ def main():
 
                     # level up
                     if lv_prev != lv_next:
-                        lv_text = "\nlevelUP!!!!"
+                        lv_text = "\n"+base_color(level_up_aa())
                         SE.play_wav("lvup")
                     else:
                         lv_text = ""
@@ -260,8 +264,7 @@ def main():
                         base_color(username + ": ") +
                         args.state.showStr() +
                         res +
-                        combo_text +
-                         , abort)
+                        combo_text, abort)
                     clientsock.sendall(data.encode())
                 else:
                     state.reset_combo()
