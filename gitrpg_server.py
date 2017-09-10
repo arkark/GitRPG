@@ -18,7 +18,6 @@ from subprocess import Popen
 import pygame
 from mutagen.mp3 import MP3
 
-
 #
 from src import state_manager
 from src.git_add import add
@@ -55,16 +54,12 @@ class Se(threading.Thread):
         time.sleep(sound.info.length)
 
 
-
-
-
 def main():
-    host = "localhost"  # お使いのサーバーのホスト名を入れます
     port = 3456  # クライアントと同じPORTをしてあげます
 
     serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serversock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    serversock.bind((host, port))  # IPとPORTを指定してバインドします
+    serversock.bind(("localhost", port))  # IPとPORTを指定してバインドします
     serversock.listen(10)  # 接続の待ち受けをします（キューの最大数を指定）
 
     pygame.mixer.init()
@@ -94,16 +89,16 @@ def main():
 
     while True:
         print('Waiting for connections...')
-        clientsock, client_address = serversock.accept()  # 接続されればデータを格納
+        clientsock, client_address = serversock.accept()
 
         while True:
             rcvmsg = clientsock.recv(1024)
-            print('Received -> %s' % (rcvmsg))
             if rcvmsg == b'':
                 continue
-            Se(os.path.dirname(os.path.abspath(__file__)) + "/music/ta/流れ星01.mp3").start()
+            # Se(os.path.dirname(os.path.abspath(__file__)) + "/music/ta/流れ星01.mp3").start()
 
             command = rcvmsg.decode('utf-8')
+            print("Received -> " + command)
             match = re.match("git (\w+)", command)
             if match:
                 print("[debug] git command detect")
@@ -111,7 +106,7 @@ def main():
                 if subcmd in handlers:
                     handlers[subcmd](command, se_path)
 
-            clientsock.sendall(b"hoge")  # メッセージを返します
+            clientsock.sendall(b"hoge")
             clientsock.close()
 
             break
