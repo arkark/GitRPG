@@ -96,13 +96,11 @@ class State:
 
     def showStr(self):
         if float(self.hp / self.max_hp) <= 0.1:
-            return f"LV: {self.lv} HP:" + getColorText("{0}/{1}".format(self.hp, self.max_hp),
-                                                       91) + f" MP: {self.mp}/{self.max_mp}"
+            return getColorText(f"LV: {self.lv} HP:",32) + getColorText("{0}/{1}".format(self.hp, self.max_hp),91) + getColorText(f" MP: {self.mp}/{self.max_mp}",32)
         elif float(self.hp / self.max_hp) <= 0.3:
-            return f"LV: {self.lv} HP:" + getColorText("{0}/{1}".format(self.hp, self.max_hp),
-                                                       93) + f" MP: {self.mp}/{self.max_mp}"
+            return getColorText(f"LV: {self.lv} HP:",32) + getColorText("{0}/{1}".format(self.hp, self.max_hp),93) + getColorText(f" MP: {self.mp}/{self.max_mp}",32)
         else:
-            return f"LV: {self.lv} HP: {self.hp}/{self.max_hp} MP: {self.mp}/{self.max_mp}"
+            return getColorText(f"LV: {self.lv} HP: {self.hp}/{self.max_hp} MP: {self.mp}/{self.max_mp}",32)
 
     def save(self):
         with open(state_path + '/state.pickle', 'wb') as f:

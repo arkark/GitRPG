@@ -49,6 +49,7 @@ from src.git_pull import pull
 from src.git_revert import revert
 from src.state_manager import State
 from src.git_combo import combo
+from src.util import getColorText
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -240,17 +241,17 @@ def main():
 
                     if res is not None:
                         data = Data(
-                            mp_text + lv_text + username + ": " + args.state.showStr() + "\n" + res + combo_text, abort)
+                            mp_text + lv_text + getColorText(username+ ": ", 32)  + args.state.showStr() + "\n" + res + combo_text, abort)
                         clientsock.sendall(data.encode())
                     else:
-                        data = Data(mp_text + lv_text + username + ": " + args.state.showStr() + combo_text, abort)
+                        data = Data(mp_text + lv_text + getColorText(username+ ": ", 32) + args.state.showStr() + combo_text, abort)
                         clientsock.sendall(data.encode())
                 else:
                     state.reset_combo()
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
-                        data = Data(" >> miss!! << \n" + username + ": " + args.state.showStr(), False)
+                        data = Data(" >> miss!! << \n" + getColorText(username+ ": " , 32) + args.state.showStr(), False)
                         clientsock.sendall(data.encode())
 
             clientsock.close()
