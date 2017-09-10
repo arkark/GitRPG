@@ -7,4 +7,4 @@ from src.util import getColorString
 
 
 def help_(args):
-    args.se_manager.play_wav("quiz")
+    args.se_manager.play_wav("question")

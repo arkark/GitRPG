@@ -20,7 +20,7 @@ def main(arg):
 
     client.send(cmd.encode('utf-8'))
 
-    response = client.recv(4096)  # レシーブは適当な2進数にします（大きすぎるとダメ）
+    response = client.recv(8192)  # レシーブは適当な2進数にします（大きすぎるとダメ）
     if response != b"":
         raw = response.decode("utf-8")
         data = Data.decode(raw)

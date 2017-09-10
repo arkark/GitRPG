@@ -131,7 +131,7 @@ def main():
     SE.register_wav("gogogo", dirname + "/music/ta/ゴゴゴゴゴ・・・.wav")  # clone
     SE.register_wav("kira01", dirname + "/music/ta/星・キラーン01.wav")  # add
     SE.register_wav("kira06", dirname + "/music/ta/星・キラーン06.wav")  # commit
-    SE.register_wav("quiz", dirname + "/music/ta/クイズ・出題03.wav")  # help
+    SE.register_wav("question", dirname + "/music/ta/クイズ・出題03.wav")  # help
     SE.register_wav("hora", dirname + "/music/attack/ホラ貝02.wav")  # init
     SE.register_wav("marimba", dirname + "/music/ta/サンザ・マリンバ03.wav")  # show
     SE.register_wav("syun", dirname + "/music/ta/シューン.wav")  # reset
