@@ -2,8 +2,12 @@
 
 import sys
 from typing import List
+from datetime import datetime
 import pickle
 import os
+
+import time
+
 from src.util import getColorText
 
 state_path = os.path.dirname(__file__) + "/../state"
@@ -16,9 +20,24 @@ class State:
         self.mp = mp
         self.max_mp = max_mp
         self.lv = lv
+        self.combo = []
+        self.last_command_time = int(time.mktime(datetime.now().timetuple()))
 
     def __repr__(self):
         return f"lv:{self.lv}\nmax_mp: {self.max_mp}\n max_hp: {self.max_hp}"
+
+    # コマンドを実行したことを通知、コンボ用。
+    def command(self, command):
+        now = int(time.mktime(datetime.now().timetuple()))
+        delta = now - self.last_command_time
+        self.last_command_time = now
+        if delta < 5:
+            self.combo.append(command)
+        else:
+            self.reset_combo()
+
+    def reset_combo(self):
+        self.combo = []
 
     def lv_up(self, hp_delta, mp_delta):
         self.max_hp += hp_delta
@@ -56,7 +75,6 @@ class State:
     def save(self):
         with open(state_path + '/state.pickle', 'wb') as f:
             pickle.dump(self, f)
-
 
     @staticmethod
     def initial_state():
