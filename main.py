@@ -14,6 +14,14 @@ from src.git_merge import merge
 from src.git_status import status
 from src.git_show import show
 from src.git_branch import branch
+from src.git_clone import clone
+from src.git_checkout import checkout
+from src.git_reset import reset
+from src.git_fetch import fetch
+from src.git_config import config
+from src.git_diff import diff
+from src.git_clean import clean
+from src.git_rebase import rebase
 
 state = state_manager.load_state()
 se_path = os.path.dirname(__file__) + "/music"
@@ -28,6 +36,14 @@ handlers = {
     ,"status": status
     ,"show": show
     ,"branch": branch
+    ,"clone": clone
+    ,"checkout": checkout
+    ,"reset": reset
+    ,"fetch": fetch
+    ,"config": config
+    ,"diff": diff
+    ,"clean": clean
+    ,"rebase": rebase
 }
 
 
