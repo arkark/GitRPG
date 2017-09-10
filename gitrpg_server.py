@@ -3,7 +3,9 @@
 import sys
 from typing import List
 
-import socket, os
+import socket
+import os
+import subprocess
 
 import pygame
 import re
@@ -89,17 +91,33 @@ class HandlerArgs:
 
 
 def main():
+    # initialize
     serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serversock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     port = 3456
     serversock.bind(("localhost", port))  # IPとPORTを指定してバインドします
     serversock.listen(10)  # 接続の待ち受けをします（キューの最大数を指定）
-
     pygame.mixer.init()
-
     state = state_manager.load_state()
     se_path = os.path.dirname(os.path.abspath(__file__)) + "/music"
     SE = SE_Manager()
+    p = subprocess.Popen(['git', 'config', "-l"],
+                         stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE,
+                         shell=False)
+    # print('return: %d' % (p.wait(),))
+    rerere = re.compile("user.name=(\w+)")
+    usermanes = [re.match(rerere, a).group(1) for a in [a.decode("utf-8") for a in p.stdout.readlines()] if
+                 "user.name" in a]
+    if len(usermanes) == 1:
+        username = usermanes[0]
+    else:
+        username = "unknown"
+
+    # print(f'stdout: {}')
+    # print('stderr: %s' % (p.stderr.readlines(),))
+    print(username)
 
     # register sound files
     SE.register_wav("obake", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/obake.wav")
@@ -156,9 +174,9 @@ def main():
                     args = HandlerArgs(command, se_path, SE, state)
                     res = handlers[subcmd](args)
                     if res is not None:
-                        clientsock.sendall((args.state.showStr() + "\n" + res).encode("utf-8"))
+                        clientsock.sendall((username + ": " + args.state.showStr() + "\n" + res).encode("utf-8"))
                     else:
-                        clientsock.sendall(args.state.showStr().encode("utf-8"))
+                        clientsock.sendall((username + ": " + args.state.showStr()).encode("utf-8"))
                 else:
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
