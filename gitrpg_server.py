@@ -38,6 +38,7 @@ from src.git_config import config
 from src.git_diff import diff
 from src.git_clean import clean
 from src.git_rebase import rebase
+from src.git_help import help_
 
 
 class Se(threading.Thread):
@@ -88,6 +89,7 @@ def main():
         , "diff": diff
         , "clean": clean
         , "rebase": rebase
+        , "help":help_
     }
 
     while True:

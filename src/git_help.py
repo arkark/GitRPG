@@ -4,7 +4,6 @@ import time
 from mutagen.mp3 import MP3
 from src.se_manager import play
 from src.util import getColorString
-from src.util import getColorText
 
-def status(cmd, se_path):
-    play(se_path + "/ta/ピ！.mp3")
+def help_(cmd, se_path):
+    play(se_path + "/ta/クイズ・出題03.mp3")
