@@ -156,6 +156,7 @@ def main():
     SE.register_wav("R01", dirname + "/music/muci/BGM・ループ・軽快R01.wav")  # rebase
     SE.register_wav("harisen01", dirname + "/music/attack/ハリセンで叩く02.wav")  # stash
     SE.register_wav("shot", dirname + "/music/attack/銃火器・ショットガン.wav")  # combo
+    SE.register_wav("lvup", dirname + "/music/muci/dq_lvup.wav")  # combo
 
     # register handlers
     handlers = {
@@ -248,6 +249,7 @@ def main():
                     # level up
                     if lv_prev != lv_next:
                         lv_text = "\n"+base_color(level_up_aa())
+                        SE.play_wav("lvup")
                     else:
                         lv_text = ""
 
