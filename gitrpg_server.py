@@ -210,6 +210,7 @@ def main():
                 print("[debug] git command detect")
                 subcmd = match.group(1)
                 if subcmd in handlers:
+                    state.command(subcmd)
                     args = HandlerArgs(command, se_path, SE, state)
                     obj = handlers[subcmd](args)
                     if obj is None:
@@ -223,13 +224,16 @@ def main():
                     mp_text = mp_zero_text(state.mp)
                     state.normalize()
                     # TODO hpが0になった時の処理追加（死ぬ？）
+
+                    combo_text = gen_combo_text(state.combo)
                     if res is not None:
-                        data = Data(mp_text + username + ": " + args.state.showStr() + "\n" + res, abort)
+                        data = Data(mp_text + username + ": " + args.state.showStr() + "\n" + res + combo_text, abort)
                         clientsock.sendall(data.encode())
                     else:
-                        data = Data(mp_text + username + ": " + args.state.showStr(), abort)
+                        data = Data(mp_text + username + ": " + args.state.showStr() + combo_text, abort)
                         clientsock.sendall(data.encode())
                 else:
+                    state.reset_combo()
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
@@ -238,8 +242,16 @@ def main():
 
             clientsock.close()
 
-
             break
+
+
+def gen_combo_text(combo):
+    combo_length = len(combo)
+    if combo_length == 0:
+        return ""
+    chain = "->".join(combo)
+    # TODO 10の倍数で効果音追加
+    return f"\n{combo_length} COMBO! {chain}"
 
 
 def mp_zero_text(mp):
