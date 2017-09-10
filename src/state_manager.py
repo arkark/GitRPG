@@ -9,6 +9,7 @@ import os
 import time
 
 from src.util import getColorText
+from src.util import getColorString
 
 state_path = os.path.dirname(__file__) + "/../state"
 
