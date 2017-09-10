@@ -175,18 +175,27 @@ def main():
             rcvmsg = clientsock.recv(1024)
             if rcvmsg == b'':
                 continue
-            # Se(os.path.dirname(os.path.abspath(__file__)) + "/music/ta/流れ星01.mp3").start()
 
             command = rcvmsg.decode('utf-8')
             print("Received -> " + command)
             if command == "gitrpg on" or command == "gitrpg off":
-                continue
+                clientsock.sendall(b"")
+                clientsock.close()
+                break
             if command == "gitrpg status":
                 # TODO　状況表示
-                continue
+                clientsock.sendall(b"")
+                clientsock.close()
+                break
             if command == "gitrpg reset":
-                # TODO　reset
-                continue
+                save_path = os.path.dirname(os.path.abspath(__file__)) + "/state/state.pickle"
+                print(save_path)
+                if os.path.exists(save_path):
+                    print("remove")
+                    os.remove(save_path)
+                clientsock.sendall(b"")
+                clientsock.close()
+                break
 
             match = re.match("git (\w+)", command)
             if match:
@@ -212,7 +221,6 @@ def main():
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
-                        pass
 
             clientsock.close()
 

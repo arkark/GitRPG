@@ -2,8 +2,6 @@
 
 C_PORT=`lsof -t -i:3456`
 
-echo $C_PORT
-
 if [ "$1" = "on" ]; then
   if [ "$C_PORT" = "" ]; then
     echo "turn on"
@@ -22,5 +20,5 @@ elif [ "$1" = "off" ]; then
     kill $C_PORT
   fi
 else
-  echo "else"
+  echo "invalid argument" # TODO help表示
 fi
