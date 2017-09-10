@@ -4,15 +4,22 @@ import os
 import re
 import sys
 from typing import List
-
 from src import state_manager
 from src.git_add import add
+from src.git_commit import commit
+from src.git_init import init
+from src.git_log import log
+from src.git_push import push
 
 state = state_manager.load_state()
 se_path = os.path.dirname(__file__) + "/music"
 
 handlers = {
     "add": add
+    ,"commit": commit
+    ,"init": init
+    ,"log": log
+    ,"push": push
 }
 
 

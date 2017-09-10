@@ -5,6 +5,5 @@ from mutagen.mp3 import MP3
 from src.se_manager import play
 
 
-def push(cmd, se_path):
+def init(cmd, se_path):
     play(se_path + "/ta/ビヨォン.mp3")
-
