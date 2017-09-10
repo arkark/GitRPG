@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
+import os
+import re
 import sys
 from typing import List
-from src.template import template
-import pygame.mixer
-import time, os, re
-from src.git_add import add
 
 from src import state_manager
+from src.git_add import add
 
 state = state_manager.load_state()
 se_path = os.path.dirname(__file__) + "/music"
@@ -32,7 +31,6 @@ def main(arg: List[str]):
         if match:
             print("[debug] git command detect")
             subcmd = match.group(1)
-            print(subcmd)
             if subcmd in handlers:
                 handlers[subcmd](command, se_path)
 

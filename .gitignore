@@ -102,3 +102,4 @@ ENV/
 
 
 state/
+*.DS_Store
