@@ -47,7 +47,7 @@ def load_state():
     if not os.path.exists(state_path):
         os.mkdir(state_path)
     if not os.path.exists(f"{state_path}/state.pickle"):
-        return State(1, 10, 10, 10, 10, True)
+        return State(1, 10, 10, 10, 10)
 
     with open(state_path + '/state.pickle', 'rb') as f:
         return pickle.load(f)
