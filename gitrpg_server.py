@@ -191,16 +191,14 @@ def main():
                 clientsock.sendall(b"")
                 clientsock.close()
                 break
-            if command == "gitrpg status":
-                # TODO　状況表示
-                clientsock.sendall(b"")
-                clientsock.close()
-                break
+            # if command == "gitrpg status":
+            #     # TODO　状況表示
+            #     clientsock.sendall(b"")
+            #     clientsock.close()
+            #     break
             if command == "gitrpg reset":
                 save_path = os.path.dirname(os.path.abspath(__file__)) + "/state/state.pickle"
-                print(save_path)
                 if os.path.exists(save_path):
-                    print("remove")
                     os.remove(save_path)
                     state = State.initial_state()
                 clientsock.sendall(b"")
