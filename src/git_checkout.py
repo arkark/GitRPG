@@ -6,5 +6,5 @@ from src.se_manager import play
 from src.util import getColorString
 from src.util import getColorText
 
-def checkout(cmd, se_path):
-    play(se_path + "/ta/リバースサウンド.mp3")
+def checkout(args):
+    args.se_manager.play_wav("rev")

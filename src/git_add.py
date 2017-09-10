@@ -9,7 +9,7 @@ from src.util import getColorString
 
 
 def add(args):
-    args.se_manager.play_wav("obake")
+    args.se_manager.play_wav("kira01")
     # play(se_path + "/ta/流れ星01.mp3")
     # play(se_path + "/ta/星・キラーン01.mp3")
 
