@@ -52,6 +52,9 @@ class State:
         now = int(time.mktime(datetime.now().timetuple()))
         delta = now - self.last_command_time
         self.last_command_time = now
+
+        # 時間回復
+        self.use_mp(-1 * (delta // 3))
         if delta < 5:
             self.combo.append(command)
         else:
@@ -97,7 +100,6 @@ class State:
 
     def showStr(self):
         pre = base_color(f"LV: {self.lv} HP: ")
-        post = base_color(f" MP: {self.mp}/{self.max_mp}")
 
         if float(self.hp / self.max_hp) <= 0.1:
             middle = red("{0}/{1}".format(self.hp, self.max_hp))
@@ -105,7 +107,14 @@ class State:
             middle = yellow("{0}/{1}".format(self.hp, self.max_hp))
         else:
             middle = base_color("{0}/{1}".format(self.hp, self.max_hp))
-        return pre + middle + post
+
+        if float(self.mp / self.max_mp) <= 0.1:
+            mp = base_color(" MP: ") + red("{0}/{1}".format(self.mp, self.max_mp))
+        elif float(self.mp / self.max_mp) <= 0.3:
+            mp = base_color(" MP: ") + yellow("{0}/{1}".format(self.mp, self.max_mp))
+        else:
+            mp = base_color(" MP: ") + base_color("{0}/{1}".format(self.mp, self.max_mp))
+        return pre + middle + mp
 
     def save(self):
         with open(state_path + '/state.pickle', 'wb') as f:

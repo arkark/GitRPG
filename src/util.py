@@ -18,6 +18,10 @@ def base_color(text):
     return str(C().b_rgb(*base_rbg).rgb(117, 249, 157, text))
 
 
+def err_color(text):
+    return str(C().b_rgb(155, 0, 0).rgb(117, 249, 157, text))
+
+
 def combo_color(text):
     return str(C().b_rgb(*base_rbg).rgb(88, 221, 208, text))
 

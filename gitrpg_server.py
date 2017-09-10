@@ -22,7 +22,7 @@ from mutagen.mp3 import MP3
 import src.se_manager
 from src.data.data import Data
 from src.se_manager import SE_Manager
-from src.util import base_color, combo_color
+from src.util import base_color, combo_color, err_color
 
 #
 from src import state_manager
@@ -216,13 +216,16 @@ def main():
                     args = HandlerArgs(command, se_path, SE, state)
                     obj = handlers[subcmd](args)
                     lv_next = state.lv
+
                     if obj is None:
-                        res, abort = None, False
+                        res, abort = "", False
                     else:
                         if type(obj) == str:
                             res, abort = obj, None
                         else:
                             res, abort = obj[0], obj[1]
+
+                    # abort
                     abort = abort or state.mp < 0
                     mp_text = mp_zero_text(state.mp)
 
@@ -252,9 +255,9 @@ def main():
                     data = Data(
                         base_color(mp_text) +
                         base_color(lv_text) +
-                        str(base_color(username + ": ")) +
+                        base_color(username + ": ") +
                         args.state.showStr() +
-                        "\n" + res +
+                        res +
                         combo_text, abort)
                     clientsock.sendall(data.encode())
                 else:
@@ -263,13 +266,14 @@ def main():
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
                         if state.hp <= 0:
-                            data = Data("you dead!!!", True)
+                            data = Data(err_color("you dead!!!"), True)
                             clientsock.sendall(data.encode())
                             state = State.reset_state()
                             clientsock.close()
                             break
-                        data = Data(" >> miss!! << \n" + str(
-                            C().b_rgb(232, 117, 249).rgb(117, 249, 157, username + ": ")) + args.state.showStr(), False)
+                        data = Data(err_color(" >> miss!! << ") + "\n" +
+                                    base_color(username + ": ") +
+                                    args.state.showStr(), False)
 
                         clientsock.sendall(data.encode())
 
