@@ -6,5 +6,7 @@ from src.se_manager import play
 from src.util import getColorString
 from src.util import getColorText
 
-def status(cmd, se_path):
-    play(se_path + "/ta/ピ！.mp3")
+
+def status(args):
+    args.se_manager.play_wav("kira01")
+    # play(se_path + "/ta/ピ！.mp3")
