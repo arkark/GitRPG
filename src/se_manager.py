@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 
 
-import sys
+import sys,os
 import threading
 import time
 from subprocess import Popen
 
 import pygame
 from mutagen.mp3 import MP3
+
+from pygame import mixer
 
 
 #
@@ -24,6 +26,13 @@ from mutagen.mp3 import MP3
 #
 #         print("length", sound.info.length)
 #         time.sleep(sound.info.length)
+
+# class
+
+def loadtest():
+    # s = pygame.mixer.Sound(os.path.dirname(os.path.abspath(__file__))+"/../music/ta/お化け.mp3")
+    # print(s)
+    pass
 
 
 def play(se_full_path):
