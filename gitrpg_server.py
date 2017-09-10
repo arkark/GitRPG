@@ -210,9 +210,11 @@ def main():
                 print("[debug] git command detect")
                 subcmd = match.group(1)
                 if subcmd in handlers:
+                    lv_prev = state.lv
                     state.command(subcmd)
                     args = HandlerArgs(command, se_path, SE, state)
                     obj = handlers[subcmd](args)
+                    lv_next = state.lv
                     if obj is None:
                         res, abort = None, False
                     else:
@@ -225,12 +227,21 @@ def main():
                     state.normalize()
                     # TODO hpが0になった時の処理追加（死ぬ？）
 
+                    # combo
                     combo_text = gen_combo_text(state.combo)
+
+                    # level up
+                    if lv_prev != lv_next:
+                        lv_text = "\nlevelUP!!!!"
+                    else:
+                        lv_text = ""
+
                     if res is not None:
-                        data = Data(mp_text + username + ": " + args.state.showStr() + "\n" + res + combo_text, abort)
+                        data = Data(
+                            mp_text + lv_text + username + ": " + args.state.showStr() + "\n" + res + combo_text, abort)
                         clientsock.sendall(data.encode())
                     else:
-                        data = Data(mp_text + username + ": " + args.state.showStr() + combo_text, abort)
+                        data = Data(mp_text + lv_text + username + ": " + args.state.showStr() + combo_text, abort)
                         clientsock.sendall(data.encode())
                 else:
                     state.reset_combo()

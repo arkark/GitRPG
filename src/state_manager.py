@@ -12,6 +12,24 @@ from src.util import getColorText
 
 state_path = os.path.dirname(__file__) + "/../state"
 
+lv_exp = [0, 100, 200, 400, 800, 1200, 1600, 3200, 6400, 12800]
+lv_extends = [
+    (5, 5),
+    (10, 10),
+    (15, 15),
+    (20, 20),
+    (25, 25),
+    (35, 35),
+    (45, 45),
+]
+
+
+# 現在のレベル取得
+def get_level(lv_exp, exp):
+    a = [(i + 1, v, exp) for i, v in enumerate(lv_exp)]
+    b = [i for i, v, exp in a if exp >= v]
+    return b[-1]
+
 
 class State:
     def __init__(self, lv, max_mp, mp, max_hp, hp):
@@ -20,6 +38,7 @@ class State:
         self.mp = mp
         self.max_mp = max_mp
         self.lv = lv
+        self.exp = 0
         self.combo = []
         self.last_command_time = int(time.mktime(datetime.now().timetuple()))
 
@@ -39,13 +58,23 @@ class State:
     def reset_combo(self):
         self.combo = []
 
-    def lv_up(self, hp_delta, mp_delta):
-        self.max_hp += hp_delta
-        self.max_mp += mp_delta
+    def lv_up(self):
+        hp, mp = lv_extends[self.lv - 1]
+        self.lv += 1
+        self.max_hp += hp
+        self.max_mp += mp
         self.hp = self.max_hp
         self.mp = self.max_mp
-        self.lv += 1
         self.save()
+
+    def add_exp(self, exp):
+        self.exp += exp
+        lv = get_level(lv_exp, self.exp)
+        if lv != self.lv:
+            for _ in range(lv - self.lv):
+                self.lv_up()
+            return True
+        return False
 
     def use_mp(self, amount):
         self.mp -= amount
