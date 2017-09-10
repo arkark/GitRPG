@@ -11,8 +11,11 @@ import pygame
 from mutagen.mp3 import MP3
 
 from src import state_manager
+import src.se_manager
+
 from src.controller import aa_controller
 from src.controller.aa_controller import level_up_aa
+
 from src.data.data import Data
 from src.git_add import add
 from src.git_branch import branch
