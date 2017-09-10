@@ -5,6 +5,8 @@ from typing import List
 
 import socket
 
+from src.data.data import Data
+
 
 def main(arg):
     if len(arg) < 2:
@@ -14,13 +16,18 @@ def main(arg):
     port = 3456
     client.connect(("localhost", port))
 
-    cmd = arg[1]
-    print(cmd)
+    cmd = arg[1].strip()
+
     client.send(cmd.encode('utf-8'))
 
     response = client.recv(4096)  # レシーブは適当な2進数にします（大きすぎるとダメ）
-    if response != "":
-        print(response.decode("utf-8"))
+    if response != b"":
+        raw = response.decode("utf-8")
+        data = Data.decode(raw)
+        print(data.abort)
+        print(data.message)
+        if data.abort:
+            exit(1)
 
 
 if __name__ == '__main__':
