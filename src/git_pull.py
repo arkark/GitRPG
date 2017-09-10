@@ -9,4 +9,5 @@ from src.util import getColorString
 
 
 def pull(args):
+    args.state.mp += 1
     args.se_manager.play_wav("biyorn02")
