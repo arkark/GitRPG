@@ -137,7 +137,7 @@ def main():
     SE.register_wav("marimba", dirname + "/music/ta/サンザ・マリンバ03.wav")  # show
     SE.register_wav("syun", dirname + "/music/ta/シューン.wav")  # reset
     SE.register_wav("quiz", dirname + "/music/ta/クイズ・間違い03.wav")  # fail
-    SE.register_wav("metro", dirname + "/music/ta/メトロノーム（早）.wav")  # branch
+    SE.register_wav("metro", dirname + "/music/ta/ピコン！.wav")  # branch
     SE.register_wav("goukaku", dirname + "/music/ta/合格！（キンコンカンコン）.wav")  # log
     SE.register_wav("pi", dirname + "/music/ta/ピ！.wav")  # status
     SE.register_wav("pyui", dirname + "/music/ta/引っ付くピュイ！.wav")  # fetch
