@@ -5,26 +5,21 @@ from typing import List
 
 import socket
 
-host = "localhost"  # お使いのサーバーのホスト名を入れます
-port = 3456  # 適当なPORTを指定してあげます
-
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # オブジェクトの作成をします
-
-client.connect((host, port))
-
-client.send(b"from nadechin")
-
-response = client.recv(4096)  # レシーブは適当な2進数にします（大きすぎるとダメ）
-
-print(response)
-
 
 def main(arg):
     if len(arg) < 2:
         return
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    port = 3456
+    client.connect(("localhost", port))
 
     cmd = arg[1]
     print(cmd)
+    client.send(cmd.encode('utf-8'))
+
+    response = client.recv(4096)  # レシーブは適当な2進数にします（大きすぎるとダメ）
+    # print(response)
 
 
 if __name__ == '__main__':
