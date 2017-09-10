@@ -8,6 +8,7 @@ from src.util import getColorText
 import os
 
 def init(args):
+    args.state.__init__(1, 10, 10, 10, 10)
     args.se_manager.play_wav("hora")
     with open(os.path.dirname(os.path.abspath(__file__))+ "/../ascii_art/git_rpg.txt", "r") as file:
     	string1 = file.read()
