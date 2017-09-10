@@ -3,3 +3,4 @@
 
 def template(cmd):
     print(cmd + cmd)
+
