@@ -47,6 +47,7 @@ from src.git_fail import fail_command
 from src.git_stash import stash
 from src.git_pull import pull
 from src.git_revert import revert
+from src.state_manager import State
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -199,6 +200,7 @@ def main():
                 if os.path.exists(save_path):
                     print("remove")
                     os.remove(save_path)
+                    state = State.initial_state()
                 clientsock.sendall(b"")
                 clientsock.close()
                 break

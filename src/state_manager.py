@@ -58,11 +58,16 @@ class State:
             pickle.dump(self, f)
 
 
+    @staticmethod
+    def initial_state():
+        return State(1, 10, 10, 10, 10)
+
+
 def load_state():
     if not os.path.exists(state_path):
         os.mkdir(state_path)
     if not os.path.exists(f"{state_path}/state.pickle"):
-        return State(1, 10, 10, 10, 10)
+        return State.initial_state()
 
     with open(state_path + '/state.pickle', 'rb') as f:
         return pickle.load(f)
