@@ -40,6 +40,7 @@ from src.git_diff import diff
 from src.git_clean import clean
 from src.git_rebase import rebase
 from src.git_help import help_
+from src.git_fail import fail_command
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -111,6 +112,7 @@ def main():
     SE.register_wav("hora", os.path.dirname(os.path.abspath(__file__)) + "/music/attack/ホラ貝02.wav")  # init
     SE.register_wav("marimba", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/サンザ・マリンバ03.wav")  # reset
     SE.register_wav("syun", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/シューン.wav")  # reset
+    SE.register_wav("quiz", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/クイズ・間違い03.wav")  # fail
 
     # register handlers
     handlers = {
@@ -159,7 +161,8 @@ def main():
                         clientsock.sendall(args.state.showStr().encode("utf-8"))
                 else:
                     if subcmd not in all_git_commands:
-                        # TODO
+                        args = HandlerArgs(command, se_path, SE, state)
+                        fail_command(args)
                         pass
 
             clientsock.close()
