@@ -44,6 +44,7 @@ from src.git_clean import clean
 from src.git_rebase import rebase
 from src.git_help import help_
 from src.git_fail import fail_command
+from src.git_stash import stash
 from src.git_pull import pull
 from src.git_revert import revert
 
@@ -145,6 +146,8 @@ def main():
     SE.register_wav("moriagari", dirname + "/music/ta/盛り上がり02.wav")  # push
     SE.register_wav("mahou11", dirname + "/music/ta/魔法的音11.wav")  # merge
     SE.register_wav("R01", dirname + "/music/muci/BGM・ループ・軽快R01.wav")  # rebase
+    SE.register_wav("harisen01", dirname + "/music/attack/ハリセンで叩く02.wav")  # stash
+
     # register handlers
     handlers = {
         "add": add
@@ -165,6 +168,7 @@ def main():
         , "clean": clean
         , "rebase": rebase
         , "help": help_
+        , "stash": stash
     }
 
     while True:
@@ -211,11 +215,13 @@ def main():
                             res, abort = obj, None
                         else:
                             res, abort = obj[0], obj[1]
+                    abort = abort or state.mp <= 0
+                    mp_text = mp_zero_text(state.mp)
                     if res is not None:
-                        data = Data(username + ": " + args.state.showStr() + "\n" + res, abort)
+                        data = Data(mp_text + username + ": " + args.state.showStr() + "\n" + res, abort)
                         clientsock.sendall(data.encode())
                     else:
-                        data = Data(username + ": " + args.state.showStr(), abort)
+                        data = Data(mp_text + username + ": " + args.state.showStr(), abort)
                         clientsock.sendall(data.encode())
                 else:
                     if subcmd not in all_git_commands:
@@ -225,6 +231,12 @@ def main():
             clientsock.close()
 
             break
+
+
+def mp_zero_text(mp):
+    if mp <= 0:
+        return "MP is not enough !!\n"
+    return ""
 
 
 if __name__ == '__main__':
