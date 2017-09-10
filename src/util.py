@@ -11,7 +11,7 @@ def getColorText(txt, number: int):
     return '\033[{0}m{1}\033[0m'.format(number, txt)
 
 
-base_rbg = (117, 92, 51)
+base_rbg = (99, 35, 4)
 
 
 def base_color(text):
@@ -23,7 +23,7 @@ def err_color(text):
 
 
 def combo_color(text):
-    return str(C().b_rgb(*base_rbg).rgb(88, 221, 208, text))
+    return str(C().b_rgb(*base_rbg).rgb(5, 204, 255, text))
 
 
 def yellow(text):
