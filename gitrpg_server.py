@@ -195,13 +195,13 @@ def main():
                 if subcmd in handlers:
                     args = HandlerArgs(command, se_path, SE, state)
                     obj = handlers[subcmd](args)
-                    if obj is not None:
+                    if obj is None:
                         res, abort = None, False
                     else:
-                        if len(res) == 2:
-                            res, abort = res[0], res[1]
+                        if type(obj) == str:
+                            res, abort = obj, None
                         else:
-                            res, abort = res[0], None
+                            res, abort = obj[0], obj[1]
                     if res is not None:
                         data = Data(username + ": " + args.state.showStr() + "\n" + res, abort)
                         clientsock.sendall(data.encode())
