@@ -20,9 +20,10 @@ from subprocess import Popen
 import pygame
 from mutagen.mp3 import MP3
 import src.se_manager
+from src.controller import aa_controller
 from src.data.data import Data
 from src.se_manager import SE_Manager
-from src.util import base_color, combo_color, err_color
+from src.util import base_color, combo_color, err_color, game_over_color
 
 #
 from src import state_manager
@@ -232,7 +233,8 @@ def main():
 
                     # dead
                     if state.hp <= 0:
-                        data = Data("you dead!!!", True)
+                        aa = aa_controller.game_over_aa()
+                        data = Data(err_color("you dead!!!") + "\n" + aa, True)
                         clientsock.sendall(data.encode())
                         state = State.reset_state()
                         clientsock.close()
@@ -268,7 +270,9 @@ def main():
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
                         if state.hp <= 0:
-                            data = Data(err_color("you dead!!!"), True)
+                            aa = aa_controller.game_over_aa()
+                            aa = game_over_color(aa)
+                            data = Data(err_color("you dead!!!") + "\n" + aa, True)
                             clientsock.sendall(data.encode())
                             state = State.reset_state()
                             clientsock.close()
