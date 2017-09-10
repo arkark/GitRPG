@@ -11,4 +11,6 @@ def status(args):
     args.se_manager.play_wav("pi")
     args.state.use_mp(1)
     args.state.add_exp(10)
+    if args.state.add_exp(10):
+    	return "level up!", False
     return "", False
