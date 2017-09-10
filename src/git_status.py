@@ -9,4 +9,4 @@ from src.util import getColorText
 
 def status(args):
     args.se_manager.play_wav("pi")
-    # play(se_path + "/ta/ピ！.mp3")
+    return "", True

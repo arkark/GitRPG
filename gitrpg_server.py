@@ -20,6 +20,7 @@ from subprocess import Popen
 import pygame
 from mutagen.mp3 import MP3
 import src.se_manager
+from src.data.data import Data
 from src.se_manager import SE_Manager
 
 #
@@ -178,17 +179,35 @@ def main():
 
             command = rcvmsg.decode('utf-8')
             print("Received -> " + command)
+            if command == "gitrpg on" or command == "gitrpg off":
+                continue
+            if command == "gitrpg status":
+                # TODO　状況表示
+                continue
+            if command == "gitrpg reset":
+                # TODO　reset
+                continue
+
             match = re.match("git (\w+)", command)
             if match:
                 print("[debug] git command detect")
                 subcmd = match.group(1)
                 if subcmd in handlers:
                     args = HandlerArgs(command, se_path, SE, state)
-                    res = handlers[subcmd](args)
-                    if res is not None:
-                        clientsock.sendall((username + ": " + args.state.showStr() + "\n" + res).encode("utf-8"))
+                    obj = handlers[subcmd](args)
+                    if obj is None:
+                        res, abort = None, False
                     else:
-                        clientsock.sendall((username + ": " + args.state.showStr()).encode("utf-8"))
+                        if type(obj) == str:
+                            res, abort = obj, None
+                        else:
+                            res, abort = obj[0], obj[1]
+                    if res is not None:
+                        data = Data(username + ": " + args.state.showStr() + "\n" + res, abort)
+                        clientsock.sendall(data.encode())
+                    else:
+                        data = Data(username + ": " + args.state.showStr(), abort)
+                        clientsock.sendall(data.encode())
                 else:
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
