@@ -22,6 +22,22 @@ from mutagen.mp3 import MP3
 #
 from src import state_manager
 from src.git_add import add
+from src.git_commit import commit
+from src.git_init import init
+from src.git_log import log
+from src.git_push import push
+from src.git_merge import merge
+from src.git_status import status
+from src.git_show import show
+from src.git_branch import branch
+from src.git_clone import clone
+from src.git_checkout import checkout
+from src.git_reset import reset
+from src.git_fetch import fetch
+from src.git_config import config
+from src.git_diff import diff
+from src.git_clean import clean
+from src.git_rebase import rebase
 
 
 class Se(threading.Thread):
@@ -58,6 +74,22 @@ def main():
 
     handlers = {
         "add": add
+        , "commit": commit
+        , "init": init
+        , "log": log
+        , "push": push
+        , "merge": merge
+        , "status": status
+        , "show": show
+        , "branch": branch
+        , "clone": clone
+        , "checkout": checkout
+        , "reset": reset
+        , "fetch": fetch
+        , "config": config
+        , "diff": diff
+        , "clean": clean
+        , "rebase": rebase
     }
 
     while True:
