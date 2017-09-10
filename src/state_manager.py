@@ -78,6 +78,8 @@ class State:
 
     def use_mp(self, amount):
         self.mp -= amount
+        if self.mp > self.max_mp:
+            self.mp = self.max_mp
         self.save()
 
     def damage(self, amount):

@@ -7,5 +7,5 @@ from src.util import getColorString
 from src.util import getColorText
 
 def fetch(args):
-    args.state.mp += 1
+    args.state.use_mp(-1)
     args.se_manager.play_wav("pyui")
