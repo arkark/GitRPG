@@ -39,6 +39,7 @@ from src.git_config import config
 from src.git_diff import diff
 from src.git_clean import clean
 from src.git_rebase import rebase
+from src.git_help import help_
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -120,6 +121,7 @@ def main():
         , "diff": diff
         , "clean": clean
         , "rebase": rebase
+        , "help":help_
     }
 
     while True:

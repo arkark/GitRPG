@@ -7,4 +7,4 @@ from src.util import getColorString
 from src.util import getColorText
 
 def status(cmd, se_path):
-    play(se_path + "/ta/ビヨォン.mp3")
+    play(se_path + "/ta/ピ！.mp3")

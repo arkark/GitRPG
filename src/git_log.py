@@ -7,7 +7,6 @@ from src.util import getColorString
 from src.util import getColorText
 import os
 
-
 def log(cmd, se_path):
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
