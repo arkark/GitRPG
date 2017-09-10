@@ -169,6 +169,8 @@ def main():
         , "rebase": rebase
         , "help": help_
         , "stash": stash
+        , "pull": pull
+        , "revert": revert
     }
 
     while True:

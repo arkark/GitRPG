@@ -1,25 +1,22 @@
-......
-.dMMMMMMMMN,
-dMM#=    (WMMh
-dMMF        MMM]                               `
-.MMM!                .MMMMMMN,    MMN.MMMMN,.MMMMMN,     .MMMMMNa.
-,MMN      .......   -MM@!`?UMM]   MMMM"??WMMMB"?7MMN   .MMM"` ?MMM,
-.MMM.     ,MMMMMN   ``_...gMMMF   MMM    ,MMF    dMM`  MMMNggggNMM@
-MMMp        .MMN`  .MMMMMYYMMF   MMN    ,MM]    dMM`  MMM"""""""""
-,MMMe.     .MMMN  .MM@    .MMF   MMN    ,MM]    dMM`  dMM[    .NN#
-TMMMNgggMMMMMN  ,MMNgJgMMMM@   MMN    ,MM]    dMM`   UMMNgJ&MMM^
-?TWMMM"" XMM`   TWMMY"`T"B_  THB    ,HH$    THH`    .TWMMMB=
+       .......
+    .+MMMMMMMMN,
+   .MMM=    .UMMN.
+  .MM#        HMM]
+  MMM%                .MMMMMMN,   .MMRMMMMMm.gMMMMN,     .MMMMMMa.
+  MMM:     .&&&&&x   JMM"` -WMM;  .MMMD!`?MMM#=`_WMM|  .MMM=  (WMM,
+  MMM|     .MMMMMN     ...gNMMM]  .MMF    MMN    (MM[  dMMNNNNNMMM@
+  JMMN        .MMN   JMMMM""4MM]  .MM]    MMN    (MM[  MMM=7777777=
+   TMMN,     .MMMN  (MMF   .JMM]  .MM]    MMN    (MM[  (MMb    .MMF
+    (HMMMNNMMMMMMN  ,MMMNNMMMMM]  .MM]    MMN    (MM[   ?MMMNgMMM#`
+       ?"""""! J"9    ?T"""' """  .""^    """    ,""'     ("""""`
 
-
-                                    `     `
-.JNMMMMNa.
-.dMMM""""MMMN,    (gg_         `         `        `  ggg     `
-(MMF      JMM#    dMM{   `          `                MM#
-JMMN,.         ...dMMa...     ..JJ-,.    ...,  ..(J..MMN...,
-?HMMMMNJ.     .MMMMMMMMB   .MMMMMMMMm   .MMbdMMMMMMMMMMMMMF
-`     ."WMMMMNJ.    dMM:     .MMB   .dMM)  .MMMM"      MM#
-...      7WMMN,   dMM:      ..gNMMMMMM[  .MM@        MM#
-MMM-       dMM]   dMM:     .MMM""! JMM[  .MM]        MM#
-?MMN,.   .(MMM`   JMM|  .. MMM|  ..MMM[  .MM]        MMN,  .,
-.TMMMMMMMMMD      WMMMMMN ,HMMMMMMWMMp  .MM]        ,MMMMMMF
-    ~!~`            ?!`     _!!                       _?!
+       .MMMMMMMNa.
+      MMM@=!_?TMMM,    dMM                               MMM
+     ,MM#      ,MMN    dMM                               MMM
+     .MMMNJ,        .NNMMMNNNP   ..gMMMNa,   `NNK .+NMNNNMMMNNN]
+       ?YMMMMNa,.   .""MMM"""=  .MMM"""WMMp   MMNMMM""9""MMM"""^
+           ?TMMMMN,    dMM      (77!...JMM#  `MMMB!      MMM
+     (JJ,      ?MMM[   dMM      .+MMMMMMMM#   MM#        MMM
+     dMMb       dMM%   dMM     .MMM^   .MM#  `MM#        MMM
+      UMMNgJ.(gMMMF    dMMm..+F MMM&..dMMM#   MM#        dMMm..+]
+        "WMMMMM""`      ?WMMM#t  THMMMB^TMM,  MME         ?WMMM#3
