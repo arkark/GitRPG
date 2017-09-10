@@ -19,7 +19,8 @@ def main(arg):
     client.send(cmd.encode('utf-8'))
 
     response = client.recv(4096)  # レシーブは適当な2進数にします（大きすぎるとダメ）
-    # print(response)
+    if response != "":
+        print(response.decode("utf-8"))
 
 
 if __name__ == '__main__':

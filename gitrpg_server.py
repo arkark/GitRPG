@@ -17,6 +17,7 @@ from subprocess import Popen
 
 import pygame
 from mutagen.mp3 import MP3
+import src.se_manager
 
 #
 from src import state_manager
@@ -66,6 +67,8 @@ def main():
 
     state = state_manager.load_state()
     se_path = os.path.dirname(__file__) + "/music"
+    src.se_manager.loadtest()
+
 
     handlers = {
         "add": add
@@ -104,9 +107,11 @@ def main():
                 print("[debug] git command detect")
                 subcmd = match.group(1)
                 if subcmd in handlers:
-                    handlers[subcmd](command, se_path)
+                    res = handlers[subcmd](command, se_path)
+                    if res is not None:
+                        clientsock.sendall(res.encode("utf-8"))
 
-            clientsock.sendall(b"hoge")
+            # clientsock.sendall(b"hoge")
             clientsock.close()
 
             break
