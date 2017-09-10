@@ -215,8 +215,10 @@ def main():
                             res, abort = obj, None
                         else:
                             res, abort = obj[0], obj[1]
-                    abort = abort or state.mp <= 0
+                    abort = abort or state.mp < 0
                     mp_text = mp_zero_text(state.mp)
+                    state.normalize()
+                    # TODO hpが0になった時の処理追加（死ぬ？）
                     if res is not None:
                         data = Data(mp_text + username + ": " + args.state.showStr() + "\n" + res, abort)
                         clientsock.sendall(data.encode())
@@ -230,11 +232,12 @@ def main():
 
             clientsock.close()
 
+
             break
 
 
 def mp_zero_text(mp):
-    if mp <= 0:
+    if mp < 0:
         return "MP is not enough !!\n"
     return ""
 

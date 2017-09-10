@@ -9,4 +9,4 @@ from src.util import getColorText
 
 def stash(args):
     args.se_manager.play_wav("harisen01")
-    args.status.use_mp(2)
+    args.state.use_mp(2)
