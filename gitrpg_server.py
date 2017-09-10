@@ -80,7 +80,8 @@ class Se(threading.Thread):
 
 
 class HandlerArgs:
-    def __init__(self, command, se_path, se_manager):
+    def __init__(self, command, se_path, se_manager, state):
+        self.state = state
         self.se_manager = se_manager
         self.se_path = se_path
         self.command = command
@@ -101,18 +102,15 @@ def main():
 
     # register sound files
     SE.register_wav("obake", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/obake.wav")
-    # SE.register_wav("nagare", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/流れ星01.wav")#
-    SE.register_wav("rev", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/リバースサウンド.wav")# checkout
-    SE.register_wav("warp", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/ワープ、瞬間移動04.wav")# clean
-    SE.register_wav("gogogo", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/ゴゴゴゴゴ・・・.wav")# clone
-    SE.register_wav("kira01", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/星・キラーン01.wav")# add
-    SE.register_wav("kira06", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/星・キラーン06.wav")# commit
-    SE.register_wav("quiz", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/クイズ・出題03.wav")# help
-    SE.register_wav("hora", os.path.dirname(os.path.abspath(__file__)) + "/music/attack/ホラ貝02.wav")# init
-    SE.register_wav("marimba", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/サンザ・マリンバ03.wav")# reset
-    SE.register_wav("syun", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/シューン.wav")# reset
-
-
+    SE.register_wav("rev", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/リバースサウンド.wav")  # checkout
+    SE.register_wav("warp", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/ワープ、瞬間移動04.wav")  # clean
+    SE.register_wav("gogogo", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/ゴゴゴゴゴ・・・.wav")  # clone
+    SE.register_wav("kira01", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/星・キラーン01.wav")  # add
+    SE.register_wav("kira06", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/星・キラーン06.wav")  # commit
+    SE.register_wav("quiz", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/クイズ・出題03.wav")  # help
+    SE.register_wav("hora", os.path.dirname(os.path.abspath(__file__)) + "/music/attack/ホラ貝02.wav")  # init
+    SE.register_wav("marimba", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/サンザ・マリンバ03.wav")  # reset
+    SE.register_wav("syun", os.path.dirname(os.path.abspath(__file__)) + "/music/ta/シューン.wav")  # reset
 
     # register handlers
     handlers = {
@@ -133,7 +131,7 @@ def main():
         , "diff": diff
         , "clean": clean
         , "rebase": rebase
-        , "help":help_
+        , "help": help_
     }
 
     while True:
@@ -153,14 +151,16 @@ def main():
                 print("[debug] git command detect")
                 subcmd = match.group(1)
                 if subcmd in handlers:
-                    args = HandlerArgs(command, se_path, SE)
+                    args = HandlerArgs(command, se_path, SE, state)
                     res = handlers[subcmd](args)
                     if res is not None:
-                        clientsock.sendall(res.encode("utf-8"))
+                        clientsock.sendall((args.state.showStr() + "\n" + res).encode("utf-8"))
                     else:
-                        if subcmd not in all_git_commands:
-                            # TODO
-                            pass
+                        clientsock.sendall(args.state.showStr().encode("utf-8"))
+                else:
+                    if subcmd not in all_git_commands:
+                        # TODO
+                        pass
 
             clientsock.close()
 

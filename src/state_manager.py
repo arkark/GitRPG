@@ -5,38 +5,42 @@ from typing import List
 import pickle
 import os
 
-state_path = os.path.dirname(__file__)+"/../state"
+state_path = os.path.dirname(__file__) + "/../state"
 
 
 class State:
-    def __init__(self, lv, max_mp, mp, max_hp, hp, enable):
+    def __init__(self, lv, max_mp, mp, max_hp, hp):
         self.hp = hp
         self.max_hp = max_hp
         self.mp = mp
         self.max_mp = max_mp
-        self.enable = enable
         self.lv = lv
 
     def __repr__(self):
-        return f"lv:{self.lv}\nenable: {self.enable}"
+        return f"lv:{self.lv}\nmax_mp: {self.max_mp}\n max_hp: {self.max_hp}"
 
+    def lv_up(self, hp_delta, mp_delta):
+        self.max_hp += hp_delta
+        self.max_mp += mp_delta
+        self.hp = self.max_hp
+        self.mp = self.max_mp
+        self.lv += 1
+        self.save()
 
-def gitrpg_on(state):
-    print("[debug]gitrpg turn on!")
-    state.enable = True
-    save_state(state)
+    def use_mp(self, amount):
+        self.mp -= amount
+        self.save()
 
+    def damage(self, amount):
+        self.hp -= amount
+        self.save()
 
-def gitrpg_off(state):
-    print("[debug]gitrpg turn off!")
-    state.enable = False
-    save_state(state)
+    def showStr(self):
+        return f"LV: {self.lv} HP: {self.hp}/{self.max_hp} MP: {self.mp}/{self.max_mp}"
 
-
-def save_state(state):
-    # print("[debug]gitrpg save state!")
-    with open(state_path + '/state.pickle', 'wb') as f:
-        pickle.dump(state, f)
+    def save(self):
+        with open(state_path + '/state.pickle', 'wb') as f:
+            pickle.dump(self, f)
 
 
 def load_state():
