@@ -36,11 +36,20 @@ class State:
         self.hp -= amount
         self.save()
 
+    def normalize(self):
+        if self.hp < 0:
+            self.hp = 0
+        if self.mp < 0:
+            self.mp = 0
+            self.save()
+
     def showStr(self):
-        if float(self.hp/self.max_hp) <= 0.1:
-            return f"LV: {self.lv} HP:" + getColorText("{0}/{1}".format(self.hp,self.max_hp),91) + f" MP: {self.mp}/{self.max_mp}"
-        elif float(self.hp/self.max_hp) <= 0.3:
-            return f"LV: {self.lv} HP:" + getColorText("{0}/{1}".format(self.hp,self.max_hp),93) + f" MP: {self.mp}/{self.max_mp}"
+        if float(self.hp / self.max_hp) <= 0.1:
+            return f"LV: {self.lv} HP:" + getColorText("{0}/{1}".format(self.hp, self.max_hp),
+                                                       91) + f" MP: {self.mp}/{self.max_mp}"
+        elif float(self.hp / self.max_hp) <= 0.3:
+            return f"LV: {self.lv} HP:" + getColorText("{0}/{1}".format(self.hp, self.max_hp),
+                                                       93) + f" MP: {self.mp}/{self.max_mp}"
         else:
             return f"LV: {self.lv} HP: {self.hp}/{self.max_hp} MP: {self.mp}/{self.max_mp}"
 
@@ -49,11 +58,16 @@ class State:
             pickle.dump(self, f)
 
 
+    @staticmethod
+    def initial_state():
+        return State(1, 10, 10, 10, 10)
+
+
 def load_state():
     if not os.path.exists(state_path):
         os.mkdir(state_path)
     if not os.path.exists(f"{state_path}/state.pickle"):
-        return State(1, 10, 10, 10, 10)
+        return State.initial_state()
 
     with open(state_path + '/state.pickle', 'rb') as f:
         return pickle.load(f)
