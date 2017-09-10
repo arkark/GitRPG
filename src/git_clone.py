@@ -5,5 +5,5 @@ from mutagen.mp3 import MP3
 from src.se_manager import play
 from src.util import getColorString
 from src.util import getColorText
-def clone(cmd, se_path):
-    play(se_path + "/ta/ゴゴゴゴゴ・・・.mp3")
+def clone(args):
+    args.se_manager.play_wav("obake")

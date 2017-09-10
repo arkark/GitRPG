@@ -5,5 +5,7 @@ from mutagen.mp3 import MP3
 from src.se_manager import play
 from src.util import getColorString
 from src.util import getColorText
-def init(cmd, se_path):
-    play(se_path + "/attack/ホラ貝02.mp3")
+
+
+def init(args):
+    args.se_manager.play_wav("hora")

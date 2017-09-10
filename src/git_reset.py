@@ -6,5 +6,6 @@ from src.se_manager import play
 from src.util import getColorString
 from src.util import getColorText
 
-def reset(cmd, se_path):
-    play(se_path + "/ta/ビヨォン.mp3")
+
+def reset(args):
+    args.se_manager.play_wav("syun")
