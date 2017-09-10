@@ -275,8 +275,8 @@ def gen_combo_text(combo, args):
     chain = "->".join(combo)
     # TODO 10の倍数で効果音追加
     if (combo_length % 10 == 0) and (combo_length != 0):
-        args.se_manager.play_wav("shot")
-    return f"\n{combo_length} COMBO! {chain}"
+       args.se_manager.play_wav("shot")
+    return getColorText(f"\n{combo_length} COMBO! {chain}",36)
 
 
 def mp_zero_text(mp):
