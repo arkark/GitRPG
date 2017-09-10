@@ -4,6 +4,7 @@ import sys
 from typing import List
 import pickle
 import os
+from src.util import getColorText
 
 state_path = os.path.dirname(__file__) + "/../state"
 
@@ -36,7 +37,12 @@ class State:
         self.save()
 
     def showStr(self):
-        return f"LV: {self.lv} HP: {self.hp}/{self.max_hp} MP: {self.mp}/{self.max_mp}"
+        if float(self.hp/self.max_hp) <= 0.1:
+            return f"LV: {self.lv} HP:" + getColorText("{0}/{1}".format(self.hp,self.max_hp),91) + f" MP: {self.mp}/{self.max_mp}"
+        elif float(self.hp/self.max_hp) <= 0.3:
+            return f"LV: {self.lv} HP:" + getColorText("{0}/{1}".format(self.hp,self.max_hp),93) + f" MP: {self.mp}/{self.max_mp}"
+        else:
+            return f"LV: {self.lv} HP: {self.hp}/{self.max_hp} MP: {self.mp}/{self.max_mp}"
 
     def save(self):
         with open(state_path + '/state.pickle', 'wb') as f:

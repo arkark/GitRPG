@@ -8,7 +8,7 @@ from subprocess import Popen
 
 import pygame
 from mutagen.mp3 import MP3
-
+from src.util import getColorText
 from pygame import mixer
 
 
