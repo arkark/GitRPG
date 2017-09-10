@@ -25,7 +25,7 @@ def main(arg):
         raw = response.decode("utf-8")
         data = Data.decode(raw)
         print(data.message)
-        print("============================================================")
+        # print("============================================================")
         if data.abort:
             exit(1)
 

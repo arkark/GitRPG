@@ -22,6 +22,7 @@ from mutagen.mp3 import MP3
 import src.se_manager
 from src.data.data import Data
 from src.se_manager import SE_Manager
+from src.util import base_color, combo_color, err_color
 
 #
 from src import state_manager
@@ -50,6 +51,8 @@ from src.git_revert import revert
 from src.state_manager import State
 from src.git_combo import combo
 from src.util import getColorText
+from colr import color
+from colr import Colr as C
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -213,13 +216,16 @@ def main():
                     args = HandlerArgs(command, se_path, SE, state)
                     obj = handlers[subcmd](args)
                     lv_next = state.lv
+
                     if obj is None:
-                        res, abort = None, False
+                        res, abort = "", False
                     else:
                         if type(obj) == str:
                             res, abort = obj, None
                         else:
                             res, abort = obj[0], obj[1]
+
+                    # abort
                     abort = abort or state.mp < 0
                     mp_text = mp_zero_text(state.mp)
 
@@ -242,25 +248,32 @@ def main():
                     else:
                         lv_text = ""
 
-                    if res is not None:
-                        data = Data(
-                            mp_text + lv_text + getColorText(username+ ": ", 32)  + args.state.showStr() + "\n" + res + combo_text, abort)
-                        clientsock.sendall(data.encode())
-                    else:
-                        data = Data(mp_text + lv_text + getColorText(username+ ": ", 32) + args.state.showStr() + combo_text, abort)
-                        clientsock.sendall(data.encode())
+                    if res is None:
+                        res = ""
+                    if res != "":
+                        res = "\n" + res
+                    data = Data(
+                        base_color(mp_text) +
+                        base_color(lv_text) +
+                        base_color(username + ": ") +
+                        args.state.showStr() +
+                        res +
+                        combo_text, abort)
+                    clientsock.sendall(data.encode())
                 else:
                     state.reset_combo()
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
                         if state.hp <= 0:
-                            data = Data("you dead!!!", True)
+                            data = Data(err_color("you dead!!!"), True)
                             clientsock.sendall(data.encode())
                             state = State.reset_state()
                             clientsock.close()
                             break
-                        data = Data(" >> miss!! << \n" + getColorText(username+ ": " , 32) + args.state.showStr(), False)
+                        data = Data(err_color(" >> miss!! << ") + "\n" +
+                                    base_color(username + ": ") +
+                                    args.state.showStr(), False)
 
                         clientsock.sendall(data.encode())
 
@@ -275,8 +288,8 @@ def gen_combo_text(combo, args):
     chain = "->".join(combo)
     # TODO 10の倍数で効果音追加
     if (combo_length % 10 == 0) and (combo_length != 0):
-       args.se_manager.play_wav("shot")
-    return getColorText(f"\n{combo_length} COMBO! {chain}",36)
+        args.se_manager.play_wav("shot")
+    return combo_color(f"\n{combo_length} COMBO! {chain}")
 
 
 def mp_zero_text(mp):

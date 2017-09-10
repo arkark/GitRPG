@@ -5,6 +5,7 @@ from typing import List
 from datetime import datetime
 import pickle
 import os
+from src.util import base_color, yellow, red
 
 import time
 
@@ -51,6 +52,9 @@ class State:
         now = int(time.mktime(datetime.now().timetuple()))
         delta = now - self.last_command_time
         self.last_command_time = now
+
+        # 時間回復
+        self.use_mp(-1 * (delta // 3))
         if delta < 5:
             self.combo.append(command)
         else:
@@ -95,12 +99,22 @@ class State:
             self.save()
 
     def showStr(self):
+        pre = base_color(f"LV: {self.lv} HP: ")
+
         if float(self.hp / self.max_hp) <= 0.1:
-            return getColorText(f"LV: {self.lv} HP:",32) + getColorText("{0}/{1}".format(self.hp, self.max_hp),91) + getColorText(f" MP: {self.mp}/{self.max_mp}",32)
+            middle = red("{0}/{1}".format(self.hp, self.max_hp))
         elif float(self.hp / self.max_hp) <= 0.3:
-            return getColorText(f"LV: {self.lv} HP:",32) + getColorText("{0}/{1}".format(self.hp, self.max_hp),93) + getColorText(f" MP: {self.mp}/{self.max_mp}",32)
+            middle = yellow("{0}/{1}".format(self.hp, self.max_hp))
         else:
-            return getColorText(f"LV: {self.lv} HP: {self.hp}/{self.max_hp} MP: {self.mp}/{self.max_mp}",32)
+            middle = base_color("{0}/{1}".format(self.hp, self.max_hp))
+
+        if float(self.mp / self.max_mp) <= 0.1:
+            mp = base_color(" MP: ") + red("{0}/{1}".format(self.mp, self.max_mp))
+        elif float(self.mp / self.max_mp) <= 0.3:
+            mp = base_color(" MP: ") + yellow("{0}/{1}".format(self.mp, self.max_mp))
+        else:
+            mp = base_color(" MP: ") + base_color("{0}/{1}".format(self.mp, self.max_mp))
+        return pre + middle + mp
 
     def save(self):
         with open(state_path + '/state.pickle', 'wb') as f:
@@ -112,7 +126,6 @@ class State:
         if os.path.exists(save_path):
             os.remove(save_path)
         return State.initial_state()
-
 
     @staticmethod
     def initial_state():
@@ -127,6 +140,3 @@ def load_state():
 
     with open(state_path + '/state.pickle', 'rb') as f:
         return pickle.load(f)
-
-
-
