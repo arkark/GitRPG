@@ -7,5 +7,5 @@ from src.util import getColorString
 from src.util import getColorText
 
 def push(args):
+    args.state.lv_up(1, 1)
     args.se_manager.play_wav("moriagari")
-
