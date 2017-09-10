@@ -48,6 +48,7 @@ from src.git_stash import stash
 from src.git_pull import pull
 from src.git_revert import revert
 from src.state_manager import State
+from src.git_combo import combo
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -148,6 +149,7 @@ def main():
     SE.register_wav("mahou11", dirname + "/music/ta/魔法的音11.wav")  # merge
     SE.register_wav("R01", dirname + "/music/muci/BGM・ループ・軽快R01.wav")  # rebase
     SE.register_wav("harisen01", dirname + "/music/attack/ハリセンで叩く02.wav")  # stash
+    SE.register_wav("shot", dirname + "/music/attack/銃火器・ショットガン.wav")  # combo
 
     # register handlers
     handlers = {
@@ -228,7 +230,7 @@ def main():
                     # TODO hpが0になった時の処理追加（死ぬ？）
 
                     # combo
-                    combo_text = gen_combo_text(state.combo)
+                    combo_text = gen_combo_text(state.combo,args)
 
                     # level up
                     if lv_prev != lv_next:
@@ -256,12 +258,14 @@ def main():
             break
 
 
-def gen_combo_text(combo):
+def gen_combo_text(combo,args):
     combo_length = len(combo)
     if combo_length == 0:
         return ""
     chain = "->".join(combo)
     # TODO 10の倍数で効果音追加
+    if (combo_length % 10 == 0) and (combo_length != 0):
+       args.se_manager.play_wav("shot")
     return f"\n{combo_length} COMBO! {chain}"
 
 
