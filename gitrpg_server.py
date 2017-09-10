@@ -49,6 +49,7 @@ from src.git_pull import pull
 from src.git_revert import revert
 from src.state_manager import State
 from src.git_combo import combo
+from src.util import getColorText
 
 all_git_commands = ["add", "merge-ours", "add--interactive", "merge-recursive", "am", "merge-resolve", "annotate",
                     "merge-subtree", "apply", "merge-tree", "archive", "mergetool", "bisect", "mktag", "bisect--helper",
@@ -177,7 +178,7 @@ def main():
     }
 
     while True:
-        print('Waiting for connections...')
+        # print('Waiting for connections...')
         clientsock, client_address = serversock.accept()
 
         while True:
@@ -191,25 +192,20 @@ def main():
                 clientsock.sendall(b"")
                 clientsock.close()
                 break
-            if command == "gitrpg status":
-                # TODO　状況表示
-                clientsock.sendall(b"")
-                clientsock.close()
-                break
+            # if command == "gitrpg status":
+            #     # TODO　状況表示
+            #     clientsock.sendall(b"")
+            #     clientsock.close()
+            #     break
             if command == "gitrpg reset":
-                save_path = os.path.dirname(os.path.abspath(__file__)) + "/state/state.pickle"
-                print(save_path)
-                if os.path.exists(save_path):
-                    print("remove")
-                    os.remove(save_path)
-                    state = State.initial_state()
+                state = State.reset_state()
                 clientsock.sendall(b"")
                 clientsock.close()
                 break
 
             match = re.match("git (\w+)", command)
             if match:
-                print("[debug] git command detect")
+                # print("[debug] git command detect")
                 subcmd = match.group(1)
                 if subcmd in handlers:
                     lv_prev = state.lv
@@ -226,11 +222,19 @@ def main():
                             res, abort = obj[0], obj[1]
                     abort = abort or state.mp < 0
                     mp_text = mp_zero_text(state.mp)
+
+                    # dead
+                    if state.hp <= 0:
+                        data = Data("you dead!!!", True)
+                        clientsock.sendall(data.encode())
+                        state = State.reset_state()
+                        clientsock.close()
+                        break
+
                     state.normalize()
-                    # TODO hpが0になった時の処理追加（死ぬ？）
 
                     # combo
-                    combo_text = gen_combo_text(state.combo,args)
+                    combo_text = gen_combo_text(state.combo, args)
 
                     # level up
                     if lv_prev != lv_next:
@@ -240,25 +244,31 @@ def main():
 
                     if res is not None:
                         data = Data(
-                            mp_text + lv_text + username + ": " + args.state.showStr() + "\n" + res + combo_text, abort)
+                            mp_text + lv_text + getColorText(username+ ": ", 32)  + args.state.showStr() + "\n" + res + combo_text, abort)
                         clientsock.sendall(data.encode())
                     else:
-                        data = Data(mp_text + lv_text + username + ": " + args.state.showStr() + combo_text, abort)
+                        data = Data(mp_text + lv_text + getColorText(username+ ": ", 32) + args.state.showStr() + combo_text, abort)
                         clientsock.sendall(data.encode())
                 else:
                     state.reset_combo()
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
                         fail_command(args)
-                        data = Data(" >> miss!! << \n" + username + ": " + args.state.showStr(), False)
+                        if state.hp <= 0:
+                            data = Data("you dead!!!", True)
+                            clientsock.sendall(data.encode())
+                            state = State.reset_state()
+                            clientsock.close()
+                            break
+                        data = Data(" >> miss!! << \n" + getColorText(username+ ": " , 32) + args.state.showStr(), False)
+
                         clientsock.sendall(data.encode())
 
             clientsock.close()
-
             break
 
 
-def gen_combo_text(combo,args):
+def gen_combo_text(combo, args):
     combo_length = len(combo)
     if combo_length == 0:
         return ""
@@ -266,7 +276,7 @@ def gen_combo_text(combo,args):
     # TODO 10の倍数で効果音追加
     if (combo_length % 10 == 0) and (combo_length != 0):
        args.se_manager.play_wav("shot")
-    return f"\n{combo_length} COMBO! {chain}"
+    return getColorText(f"\n{combo_length} COMBO! {chain}",36)
 
 
 def mp_zero_text(mp):
