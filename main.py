@@ -10,6 +10,10 @@ from src.git_commit import commit
 from src.git_init import init
 from src.git_log import log
 from src.git_push import push
+from src.git_merge import merge
+from src.git_status import status
+from src.git_show import show
+from src.git_branch import branch
 
 state = state_manager.load_state()
 se_path = os.path.dirname(__file__) + "/music"
@@ -20,6 +24,10 @@ handlers = {
     ,"init": init
     ,"log": log
     ,"push": push
+    ,"merge": merge
+    ,"status": status
+    ,"show": show
+    ,"branch": branch
 }
 
 
