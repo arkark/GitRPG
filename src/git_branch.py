@@ -9,5 +9,3 @@ def branch(args):
     args.state.use_mp(1)
     args.se_manager.play_wav("metro")
 
-#def branch(cmd, se_path):
-    #play(se_path + "/ta/流れ星01.mp3)
