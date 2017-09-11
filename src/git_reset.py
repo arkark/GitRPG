@@ -8,5 +8,6 @@ from src.util import getColorText
 
 
 def reset(args):
+    args.state.add_exp(20)
     args.state.damage(1)
     args.se_manager.play_wav("syun")

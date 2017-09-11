@@ -14,7 +14,7 @@ from src.util import getColorString
 
 state_path = os.path.dirname(__file__) + "/../state"
 
-lv_exp = [0, 100, 200, 400, 800, 1200, 1600, 3200, 6400, 12800]
+lv_exp = [0, 80, 200, 400, 800, 1200, 1600, 3200, 6400, 12800]
 lv_extends = [
     (5, 5),
     (10, 10),

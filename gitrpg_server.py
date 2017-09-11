@@ -238,7 +238,7 @@ def main():
                     combo_text = gen_combo_text(state.combo, args)
 
                     # level up
-                    if lv_prev != lv_next:
+                    if lv_prev < lv_next:
                         lv_text = "\n"+base_color(level_up_aa())
                         SE.play_wav("lvup")
                     else:
