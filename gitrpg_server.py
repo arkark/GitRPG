@@ -238,12 +238,19 @@ def main():
                     combo_text = gen_combo_text(state.combo, args)
 
                     # level up
+<<<<<<< Updated upstream
                     if lv_prev < lv_next:
                         lv_text = "\n"+base_color(level_up_aa())
                         SE.play_wav("lvup")
+=======
+                    if lv_prev != lv_next:
+                        lv_text = "\nlevelUP!!!!"
+                        with open(os.path.dirname(os.path.abspath(__file__))+ "/../ascii_art/kuma_and_git_rpg.txt", "r") as file:
+                            upstring = file.read()
+>>>>>>> Stashed changes
                     else:
                         lv_text = ""
-
+                        upstring = ""
                     if res is None:
                         res = ""
                     if res != "":
@@ -254,7 +261,8 @@ def main():
                         base_color(username + ": ") +
                         args.state.showStr() +
                         res +
-                        combo_text, abort)
+                        combo_text + upstring
+                         , abort)
                     clientsock.sendall(data.encode())
                 else:
                     state.reset_combo()
