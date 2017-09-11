@@ -10,4 +10,5 @@ def rebase(args):
     if not args.state.use_mp(3):
         args.state.reset_combo()
         return mp_zero_text("rebase"), True
+    args.state.add_exp(20)
     args.se_manager.play_wav("R01")
