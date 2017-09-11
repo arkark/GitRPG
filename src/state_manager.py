@@ -86,6 +86,7 @@ class State:
         if self.mp > self.max_mp:
             self.mp = self.max_mp
         self.save()
+        return self.mp >= 0
 
     def damage(self, amount):
         self.hp -= amount

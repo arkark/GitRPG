@@ -7,5 +7,6 @@ from src.util import getColorString
 
 
 def help_(args):
-    args.state.use_mp(1)
+    if not args.state.use_mp(1):
+        return
     args.se_manager.play_wav("question")
