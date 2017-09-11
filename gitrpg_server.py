@@ -145,7 +145,8 @@ def main():
     SE.register_wav("shot", dirname + "/music/attack/銃火器・ショットガン.wav")  # combo
     SE.register_wav("lvup", dirname + "/music/muci/dq_lvup.wav")  # combo
     SE.register_wav("pushf", dirname + "/music/attack/爆破・爆発19.wav")  # pushf
-
+    SE.register_wav("gover", dirname + "/music/failed.wav")  # gameover
+    
     # register handlers
     handlers = {
         "add": add
@@ -224,6 +225,7 @@ def main():
                     # dead
                     if state.hp <= 0:
                         aa = aa_controller.game_over_aa()
+                        SE.play_wav("gover")
                         data = Data(err_color("you dead!!!") + "\n" + aa, True)
                         clientsock.sendall(data.encode())
                         state = State.reset_state()
@@ -264,6 +266,7 @@ def main():
                             aa = aa_controller.game_over_aa()
                             aa = game_over_color(aa)
                             data = Data(err_color("you dead!!!") + "\n" + aa, True)
+                            SE.play_wav("gover")
                             clientsock.sendall(data.encode())
                             state = State.reset_state()
                             clientsock.close()
