@@ -238,7 +238,7 @@ def main():
 
                     # level up
                     if lv_prev < lv_next:
-                        lv_text = "\n" + base_color(level_up_aa())
+                        lv_text = combo_color(level_up_aa())
                         SE.play_wav("lvup")
                     else:
                         lv_text = ""
@@ -247,7 +247,7 @@ def main():
                     if res != "":
                         res = "\n" + res + "\n"
                     data = Data(
-                        base_color(lv_text) +
+                        lv_text +
                         res +
                         base_color(username + ": ") +
                         args.state.showStr() +
