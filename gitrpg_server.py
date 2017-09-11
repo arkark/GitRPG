@@ -220,7 +220,7 @@ def main():
 
                     # abort
                     abort = abort or state.mp < 0
-                    mp_text = mp_zero_text(state.mp)
+                    mp_text = mp_zero_text(state.mp)  # TODO 各ハンドラで生成するように修正
 
                     # dead
                     if state.hp <= 0:
@@ -239,7 +239,7 @@ def main():
 
                     # level up
                     if lv_prev < lv_next:
-                        lv_text = "\n"+base_color(level_up_aa())
+                        lv_text = "\n" + base_color(level_up_aa())
                         SE.play_wav("lvup")
                     else:
                         lv_text = ""
@@ -247,13 +247,13 @@ def main():
                     if res is None:
                         res = ""
                     if res != "":
-                        res = "\n" + res
+                        res = "\n" + res + "\n"
                     data = Data(
                         base_color(mp_text) +
                         base_color(lv_text) +
+                        res +
                         base_color(username + ": ") +
                         args.state.showStr() +
-                        res +
                         combo_text, abort)
                     clientsock.sendall(data.encode())
                 else:
