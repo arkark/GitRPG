@@ -218,10 +218,6 @@ def main():
                         else:
                             res, abort = obj[0], obj[1]
 
-                    # abort
-                    abort = abort or state.mp < 0
-                    mp_text = mp_zero_text(state.mp)  # TODO 各ハンドラで生成するように修正
-
                     # dead
                     if state.hp <= 0:
                         aa = aa_controller.game_over_aa()
@@ -248,7 +244,6 @@ def main():
                     if res != "":
                         res = "\n" + res + "\n"
                     data = Data(
-                        base_color(mp_text) +
                         base_color(lv_text) +
                         res +
                         base_color(username + ": ") +
@@ -289,12 +284,6 @@ def gen_combo_text(combo, args):
     if (combo_length % 10 == 0) and (combo_length != 0):
         args.se_manager.play_wav("shot")
     return combo_color(f"\n{combo_length} COMBO! {chain}")
-
-
-def mp_zero_text(mp):
-    if mp < 0:
-        return "MP が 足りない！\n"
-    return ""
 
 
 if __name__ == '__main__':

@@ -2,19 +2,20 @@
 import re
 
 from src.controller.aa_controller import push_force_aa
+from src.util import mp_zero_text
 
 
 def push(args):
     if args.command.find(" -f") != -1 or args.command.find(" --force") != -1:
         if not args.state.use_mp(11):
-            args.state.reset_state()
-            return
+            args.state.reset_combo()
+            return mp_zero_text("push"), True
         args.se_manager.play_wav("pushf")
         return push_force_aa()
     else:
         if not args.state.use_mp(7):
-            args.state.reset_state()
-            return
+            args.state.reset_combo()
+            return mp_zero_text("push"), True
         args.state.add_exp(50)
         args.se_manager.play_wav("moriagari")
 

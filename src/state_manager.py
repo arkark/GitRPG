@@ -82,11 +82,13 @@ class State:
         return False
 
     def use_mp(self, amount):
+        if self.mp - amount < 0:
+            return False
         self.mp -= amount
         if self.mp > self.max_mp:
             self.mp = self.max_mp
         self.save()
-        return self.mp >= 0
+        return True
 
     def damage(self, amount):
         self.hp -= amount

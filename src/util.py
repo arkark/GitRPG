@@ -36,3 +36,7 @@ def yellow(text):
 
 def red(text):
     return str(C().b_rgb(*base_rbg).rgb(255, 0, 0, text))
+
+
+def mp_zero_text(command):
+    return f"{command} をうつには MP が たりない！\n"
