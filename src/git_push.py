@@ -5,11 +5,12 @@ from src.controller.aa_controller import push_force_aa
 
 
 def push(args):
-    args.state.use_mp(7)
     if args.command.find(" -f") != -1 or args.command.find(" --force") != -1:
+        args.state.use_mp(11)
         args.se_manager.play_wav("pushf")
         return push_force_aa()
     else:
+        args.state.use_mp(7)
         args.state.add_exp(50)
         args.se_manager.play_wav("moriagari")
 

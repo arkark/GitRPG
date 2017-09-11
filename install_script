@@ -1,20 +1,17 @@
-GITRPG=~/GitPRG/GitRPG/gitrpg_client.py
+GITRPG=path/to/GitRPG/gitrpg_client.py
 function hoge(){
-COMMAND=${1}
-C_PORT=`lsof -t -i:3456`
-if [ “$C_PORT” = “” ]; then
- # 起動してない
- echo “起動してない”
-else
-if [[ $COMMAND == gitrpg* ]]; then
-  # 無視
-  echo “無視”
- else
-  ${GITRPG} ${COMMAND}
- fi
-fi
-# sleep 2s
-# kill -INT 0
+  COMMAND=${1}
+  C_PORT=`lsof -t -i:3456`
+  if [ "$C_PORT" = "" ]; then
+    # 起動してない
+    echo "起動してない"
+  else
+    ${GITRPG} ${COMMAND}
+    code=$?
+    if [ $code -gt 0 ]; then;
+      kill -INT 0
+    fi
+  fi
 }
 autoload -Uz add-zsh-hook
-add-zsh-hook preexec hoge
+add-zsh-hook preexec hog

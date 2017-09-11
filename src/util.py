@@ -19,7 +19,7 @@ def base_color(text):
 
 
 def game_over_color(text):
-    return str(C().b_rgb(100, 40, 40).rgb(0, 0, 0, text))
+    return str(C().b_rgb(100, 40, 40).rgb(0, 255, 0, text))
 
 
 def err_color(text):
