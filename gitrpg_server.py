@@ -243,7 +243,6 @@ def main():
                         SE.play_wav("lvup")
                     else:
                         lv_text = ""
-
                     if res is None:
                         res = ""
                     if res != "":
@@ -294,7 +293,7 @@ def gen_combo_text(combo, args):
 
 def mp_zero_text(mp):
     if mp < 0:
-        return "MP is not enough !!\n"
+        return "MP が 足りない！\n"
     return ""
 
 
