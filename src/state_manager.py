@@ -117,7 +117,10 @@ class State:
             mp = base_color(" MP: ") + yellow("{0}/{1}".format(self.mp, self.max_mp))
         else:
             mp = base_color(" MP: ") + base_color("{0}/{1}".format(self.mp, self.max_mp))
-        return pre + middle + mp
+
+        exp = base_color(f" EXP: {self.exp}")
+
+        return pre + middle + mp + exp
 
     def save(self):
         with open(state_path + '/state.pickle', 'wb') as f:

@@ -187,14 +187,17 @@ def main():
                 clientsock.sendall(b"")
                 clientsock.close()
                 break
-            # if command == "gitrpg status":
-            #     # TODO　状況表示
-            #     clientsock.sendall(b"")
-            #     clientsock.close()
-            #     break
+            if command == "gitrpg status":
+                data = Data(
+                    base_color(username + ": ") +
+                    state.showStr(), True)
+                clientsock.sendall(data.encode())
+                clientsock.close()
+                break
             if command == "gitrpg reset":
                 state = State.reset_state()
-                clientsock.sendall(b"")
+                data = Data("", True)
+                clientsock.sendall(data.encode())
                 clientsock.close()
                 break
 
