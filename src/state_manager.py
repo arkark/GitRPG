@@ -125,7 +125,9 @@ class State:
         save_path = os.path.dirname(os.path.abspath(__file__)) + "/../state/state.pickle"
         if os.path.exists(save_path):
             os.remove(save_path)
-        return State.initial_state()
+        s = State.initial_state()
+        s.save()
+        return s
 
     @staticmethod
     def initial_state():
