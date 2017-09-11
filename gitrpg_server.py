@@ -119,7 +119,7 @@ def main():
     # register sound files
     dirname = os.path.dirname(os.path.abspath(__file__))
     SE.register_wav("rev", dirname + "/music/ta/リバースサウンド.wav")  # checkout
-    SE.register_wav("warp", dirname + "/music/ta/ワープ、瞬間移動04.wav")  # clean
+    SE.register_wav("warp", dirname + "/music/attack/ドカン！（ディレイ）.wav")  # clean
     SE.register_wav("gogogo", dirname + "/music/ta/ゴゴゴゴゴ・・・.wav")  # clone
     SE.register_wav("kira01", dirname + "/music/ta/星・キラーン01.wav")  # add
     SE.register_wav("kira06", dirname + "/music/ta/星・キラーン06.wav")  # commit
