@@ -8,5 +8,6 @@ from src.util import getColorText
 
 
 def stash(args):
+    if not args.state.use_mp(2):
+        return
     args.se_manager.play_wav("harisen01")
-    args.state.use_mp(2)

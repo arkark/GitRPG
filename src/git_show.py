@@ -8,5 +8,6 @@ from src.util import getColorText
 
 
 def show(args):
-    args.state.use_mp(1)
+    if not args.state.use_mp(1):
+        return 
     args.se_manager.play_wav("marimba")

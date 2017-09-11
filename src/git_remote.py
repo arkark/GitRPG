@@ -8,6 +8,7 @@ from src.util import getColorText
 
 
 def remote(args):
-    args.state.use_mp(1)
+    if not args.state.use_mp(1):
+        return
     args.state.add_exp(20)
     args.se_manager.play_wav("remote")
