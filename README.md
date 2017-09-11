@@ -1,5 +1,10 @@
 # Git RPG
 
+# requirement
+- python 3.6
+- zsh
+- git
+
 # install
 
 0. `make install`で依存を入れる。
