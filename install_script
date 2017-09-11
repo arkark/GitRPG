@@ -4,7 +4,7 @@ function hoge(){
   C_PORT=`lsof -t -i:3456`
   if [ "$C_PORT" = "" ]; then
     # 起動してない
-    echo "起動してない"
+    # echo "起動してない"
   else
     ${GITRPG} ${COMMAND}
     code=$?
