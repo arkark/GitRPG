@@ -203,8 +203,8 @@ def main():
                     lv_prev = state.lv
                     state.command(subcmd)
                     args = HandlerArgs(command, se_path, SE, state)
-                    state = args.state
                     obj = handlers[subcmd](args)
+                    state = args.state
                     lv_next = state.lv
 
                     if obj is None:
@@ -257,8 +257,8 @@ def main():
                     state.reset_combo()
                     if subcmd not in all_git_commands:
                         args = HandlerArgs(command, se_path, SE, state)
-                        state = args.state
                         fail_command(args)
+                        state = args.state
                         if state.hp <= 0:
                             aa = aa_controller.game_over_aa()
                             aa = game_over_color(aa)
