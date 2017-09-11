@@ -182,7 +182,7 @@ def main():
                 continue
 
             command = rcvmsg.decode('utf-8')
-            print("Received -> " + command)
+            # print("Received -> " + command)
             if command == "gitrpg on" or command == "gitrpg off":
                 clientsock.sendall(b"")
                 clientsock.close()

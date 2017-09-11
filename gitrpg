@@ -5,9 +5,8 @@ C_PORT=`lsof -t -i:3456`
 if [ "$1" = "on" ]; then
   if [ "$C_PORT" = "" ]; then
     echo "turn on"
-    # TODO 本番では、末尾に&使う
-    # gitrpg_server.py &
-    gitrpg_server.py
+    gitrpg_server.py &
+    # gitrpg_server.py # 開発時は末尾の&を消すとログが見れるよ！
   else
     echo "already running"
   fi
