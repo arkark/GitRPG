@@ -118,7 +118,8 @@ class State:
         else:
             mp = base_color(" MP: ") + base_color("{0}/{1}".format(self.mp, self.max_mp))
 
-        exp = base_color(f" EXP: {self.exp}")
+        next_exp = lv_exp[get_level(lv_exp, self.exp)]
+        exp = base_color(f" EXP: {self.exp}/{next_exp}")
 
         return pre + middle + mp + exp
 
