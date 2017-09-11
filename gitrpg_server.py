@@ -31,6 +31,7 @@ from src.git_merge import merge
 from src.git_pull import pull
 from src.git_push import push
 from src.git_rebase import rebase
+from src.git_remote import remote
 from src.git_reset import reset
 from src.git_revert import revert
 from src.git_show import show
@@ -143,7 +144,8 @@ def main():
     SE.register_wav("lvup", dirname + "/music/muci/dq_lvup.wav")  # combo
     SE.register_wav("pushf", dirname + "/music/attack/爆破・爆発19.wav")  # pushf
     SE.register_wav("gover", dirname + "/music/failed.wav")  # gameover
-    
+    SE.register_wav("remote", dirname + "/music/ta/ワープ、瞬間移動04.wav")  # remote
+
     # register handlers
     handlers = {
         "add": add
@@ -167,6 +169,7 @@ def main():
         , "stash": stash
         , "pull": pull
         , "revert": revert
+        , "remote": remote
     }
 
     while True:

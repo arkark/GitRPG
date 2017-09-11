@@ -9,5 +9,5 @@ from src.util import getColorString
 
 
 def revert(args):
-    args.state.hp -= 1
+    args.state.damage(3)
     args.se_manager.play_wav("hyurn")
