@@ -14,4 +14,4 @@ function hoge(){
   fi
 }
 autoload -Uz add-zsh-hook
-add-zsh-hook preexec hog
+add-zsh-hook preexec hoge
